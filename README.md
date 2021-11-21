@@ -68,3 +68,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+### 코딩규약
+
+코딩 규약은 [airbnb스타일]()을 따르며 해당 규약을 따르기 위해 eslint, prettier, husky, lint-staged를 이용한다.
+
+### etc
+
+stateless 한 컴포넌트 : 각종 버튼, 카드 부분, 키워드, 헤더
+statefull 한 컴포넌트 : 프로그레스바, 파일 미리보기, 번연여부 토글, 핵심 네모 그 각종 거시기가 다 일어나는 부분 , 본문
+
+### 사용 라이브러리
+
+### 라이센스
+
+MIT

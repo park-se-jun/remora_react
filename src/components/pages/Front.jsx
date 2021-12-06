@@ -1,5 +1,6 @@
 import TranslationToggleButton from "../UI/atoms/TranslationToggleButton";
 import BasicButton from "../UI/atoms/BasicButton";
+import ExtractStepper from "../UI/atoms/ExtractStepper";
 
 function Front() {
     return (
@@ -8,6 +9,8 @@ function Front() {
             <BasicButton text="123123123" />
             <br />
             <TranslationToggleButton />
+            <br />
+            <ExtractStepper />
         </div>
     );
 }

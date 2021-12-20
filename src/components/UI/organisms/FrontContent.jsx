@@ -11,13 +11,11 @@ function FrontContent() {
         <Grid container spacing={2} justifyContent="center" alignItems="center">
             <GridItems item xs={12} />
             <GridItems item xs={12} />
-            <GridItems item xs={3} />
-            <GridItems item xs={6}>
+            <GridItems item xs="auto">
                 <Typography variant="h6" component="div" align="center">
                     Remora를 이용해서 동영상 속 텍스트를 추출해 보세요!
                 </Typography>
             </GridItems>
-            <GridItems item xs={3} />
             <GridItems item xs={12} />
             <GridItems item xs={12} />
             <GridItems item xs="auto">

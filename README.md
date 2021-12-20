@@ -72,7 +72,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ### 코딩규약
 
 코딩 규약은 [airbnb스타일]()을 따르며 해당 규약을 따르기 위해 eslint, prettier, husky, lint-staged를 이용한다.
-[코딩규약가이드](/document/Coding Style Guide md)
 
 ### etc
 

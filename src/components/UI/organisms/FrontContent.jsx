@@ -1,7 +1,6 @@
 import { Grid, Typography } from "@mui/material";
-import BasicButton from "components/UI/atoms/BasicButton";
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import LinkToExtractButton from "../molecules/LinkToExtractButton";
 
 const GridItems = styled(Grid)`
     min-height: 100px;
@@ -19,14 +18,7 @@ function FrontContent() {
             <GridItems item xs={12} />
             <GridItems item xs={12} />
             <GridItems item xs="auto">
-                <BasicButton
-                    sx={{ height: 1 }}
-                    gridColumn="span 4"
-                    text="동영상속 텍스트를 추출하러 가기 ->"
-                    to="/extract"
-                    size="lg"
-                    component={Link}
-                />
+                <LinkToExtractButton />
             </GridItems>
         </Grid>
     );

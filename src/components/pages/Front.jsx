@@ -1,8 +1,15 @@
+import PageTemplate from "../templates/PageTemplate";
+import RemoraFooter from "../UI/molecules/RemoraFooter";
+import RemoraHeader from "../UI/molecules/RemoraHeader";
+import FrontContent from "../UI/organisms/FrontContent";
+
 function Front() {
     return (
-        <div className="ExtreactPage" style={{ padding: "1rem 0" }}>
-            <h2>프론트페이지</h2>
-        </div>
+        <PageTemplate
+            header={<RemoraHeader index={0} />}
+            content={<FrontContent />}
+            footer={<RemoraFooter />}
+        />
     );
 }
 export default Front;

@@ -9,8 +9,6 @@ function ExtractContent() {
                 alignItems: "center",
                 justifyContent: "center",
                 flexDirection: "column",
-                pt: "10%",
-                mt: "10%",
             }}
         >
             <ExtractStepper />

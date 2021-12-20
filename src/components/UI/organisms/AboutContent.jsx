@@ -19,14 +19,17 @@ function AboutContent() {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                mt: "50vh",
+                mb: "50vh",
             }}
         >
             <LinkToExtractButton />
             <Box
                 sx={{
                     minWidth: "80%",
-                    mt: "10%",
-                    mb: "10%",
+                    minHeight: "1000px",
+                    mt: "50vh",
+                    mb: "50vh",
                 }}
             >
                 <ReactMarkdown>{src}</ReactMarkdown>

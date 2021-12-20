@@ -1,8 +1,15 @@
+import PageTemplate from "../templates/PageTemplate";
+import RemoraFooter from "../UI/molecules/RemoraFooter";
+import RemoraHeader from "../UI/molecules/RemoraHeader";
+import AboutContent from "../UI/organisms/AboutContent";
+
 function About() {
     return (
-        <div className="About" style={{ padding: "1rem 0" }}>
-            <h2>about 페이지</h2>
-        </div>
+        <PageTemplate
+            header={<RemoraHeader index={1} />}
+            content={<AboutContent />}
+            footer={<RemoraFooter />}
+        />
     );
 }
 export default About;

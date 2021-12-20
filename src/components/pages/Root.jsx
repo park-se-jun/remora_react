@@ -1,18 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Front, About, Extract, Result } from "components/pages";
-import RemoraHeader from "components/UI/atoms/RemoraHeader";
-import Test from "./Test";
+import { Front, About, Extract, Result, Test } from "components/pages";
 
 function Root() {
-    const isTest = true;
     return (
         <BrowserRouter>
-            <RemoraHeader />
             <Routes>
-                <Route exact path="/" element={isTest ? <Test /> : <Front />} />
+                <Route exact path="/" element={<Front />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/extract" element={<Extract />} />
                 <Route path="/result" element={<Result />} />
+                <Route path="/test" element={<Test />} />
+                {/* [테스트] 반드시 지워주기 */}
             </Routes>
         </BrowserRouter>
     );

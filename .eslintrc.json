@@ -13,6 +13,20 @@
     ],
     "parser": "babel-eslint",
     "rules": {
-        "no-console": 2
-    }
+        "no-console": 0,
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "paths": ["src"]
+            }
+        }
+    },
+    "plugins": ["jest"]
 }

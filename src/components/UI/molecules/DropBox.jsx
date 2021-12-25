@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
+
+import uuidv4 from "modules/uuid";
 import { useTheme } from "@mui/material/styles";
 import { useDropzone } from "react-dropzone";
 import { Box, Typography } from "@mui/material";
@@ -12,7 +14,10 @@ function DropBox({ handleFiles }) {
         noClick: true,
         noKeyboard: true,
         onDrop: acceptedFiles => {
-            handleFiles(acceptedFiles);
+            const files = acceptedFiles.map(file =>
+                Object.assign(file, { id: uuidv4(), translation: true }),
+            );
+            handleFiles(files);
         },
     });
     return (

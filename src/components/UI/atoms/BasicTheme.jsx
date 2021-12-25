@@ -15,6 +15,7 @@ const BasicTheme = createTheme({
             main: "#FF7069",
             contrastText: "#e5e5e5",
         },
+        borderColor: "#e5e5e5",
     },
 });
 export default BasicTheme;

@@ -1,14 +1,13 @@
-import { Button, ThemeProvider } from "@mui/material";
+/* eslint-disable react/jsx-props-no-spreading */
+import { Button } from "@mui/material";
+import PropTypes from "prop-types";
 import React from "react";
-import BasicTheme from "./BasicTheme";
-// import TranslationTheme from "./TranslationTheme";
 
-function TranslationToggleButton() {
-    const [translate, setTranslate] = React.useState(true);
+function TranslationToggleButton({ Translation, ...props }) {
     const [text, setText] = React.useState("번역한다");
     const [color, setColor] = React.useState("primary");
     React.useEffect(() => {
-        if (translate) {
+        if (Translation) {
             setText("번역한다");
             setColor("primary");
         } else {
@@ -17,21 +16,20 @@ function TranslationToggleButton() {
         }
     });
     return (
-        <ThemeProvider theme={BasicTheme}>
-            <Button
-                sx={{
-                    width: 138,
-                    height: 36,
-                }}
-                color={color}
-                variant="contained"
-                onClick={() => {
-                    setTranslate(!translate);
-                }}
-            >
-                {text}
-            </Button>
-        </ThemeProvider>
+        <Button
+            sx={{
+                width: 138,
+                height: 36,
+            }}
+            color={color}
+            variant="contained"
+            {...props}
+        >
+            {text}
+        </Button>
     );
 }
 export default TranslationToggleButton;
+TranslationToggleButton.propTypes = {
+    Translation: PropTypes.bool.isRequired,
+};

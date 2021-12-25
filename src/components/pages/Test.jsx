@@ -1,10 +1,4 @@
-import AboutContent from "../UI/organisms/AboutContent";
-
 function Test() {
-    return (
-        <>
-            <AboutContent />
-        </>
-    );
+    return <>test</>;
 }
 export default Test;

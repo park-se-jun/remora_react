@@ -3,19 +3,17 @@ import { Button } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
 
-function TranslationToggleButton({ getTranslation, ...props }) {
-    const [translate, setTranslate] = React.useState(true);
+function TranslationToggleButton({ Translation, ...props }) {
     const [text, setText] = React.useState("번역한다");
     const [color, setColor] = React.useState("primary");
     React.useEffect(() => {
-        if (translate) {
+        if (Translation) {
             setText("번역한다");
             setColor("primary");
         } else {
             setText("번역하지 않는다");
             setColor("error");
         }
-        getTranslation(translate);
     });
     return (
         <Button
@@ -25,9 +23,6 @@ function TranslationToggleButton({ getTranslation, ...props }) {
             }}
             color={color}
             variant="contained"
-            onClick={() => {
-                setTranslate(!translate);
-            }}
             {...props}
         >
             {text}
@@ -36,5 +31,5 @@ function TranslationToggleButton({ getTranslation, ...props }) {
 }
 export default TranslationToggleButton;
 TranslationToggleButton.propTypes = {
-    getTranslation: PropTypes.func.isRequired,
+    Translation: PropTypes.bool.isRequired,
 };

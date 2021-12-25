@@ -2,15 +2,10 @@ import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/styles";
 import PropTypes from "prop-types";
-import { useState } from "react";
 import TranslationToggleButton from "./TranslationToggleButton";
 
-function FileComponent({ fileName, disabled: isDisabled }) {
+function FileInfo({ file, onTranslate, disabled: isDisabled }) {
     const theme = useTheme();
-    const [translation, setTranslation] = useState(true);
-    const getTranslation = doTranslate => {
-        setTranslation(doTranslate);
-    };
     return (
         <Box
             sx={{
@@ -24,21 +19,26 @@ function FileComponent({ fileName, disabled: isDisabled }) {
             }}
         >
             <VideoLibraryIcon sx={{ fontSize: "8rem" }} />
-            {fileName}
-            {translation}
+            {file.name}
             <TranslationToggleButton
-                getTranslation={getTranslation}
+                Translation={file.translation}
+                onClick={() => onTranslate(file.id)}
                 disabled={isDisabled}
             />
         </Box>
     );
 }
-export default FileComponent;
+export default FileInfo;
 
-FileComponent.propTypes = {
-    fileName: PropTypes.string.isRequired,
+FileInfo.propTypes = {
+    file: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        translation: PropTypes.bool.isRequired,
+    }).isRequired,
+    onTranslate: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
 };
-FileComponent.defaultProps = {
+FileInfo.defaultProps = {
     disabled: false,
 };

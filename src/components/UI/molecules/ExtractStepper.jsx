@@ -3,58 +3,38 @@ import {
     Box,
     /* LinearProgress, */ Step,
     StepLabel,
-    Grid,
-    Typography,
 } from "@mui/material";
 import React from "react";
+
 import BasicButton from "../atoms/BasicButton";
+import VideoItems from "./VideoItems";
+import FileSelectStep from "./FileSelectStep";
 
 const steps = ["동영상 선택", "번역 선택", "결과 확인"];
-function FileSelectStep() {
-    return (
-        <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            spacing={4}
-            wrap="wrap"
-        >
-            <Grid item xs="auto">
-                <Typography variant="h6">
-                    텍스트를 추출할 영상을 선택해 주세요
-                </Typography>
-            </Grid>
-            <Grid item xs={12} />
-            <Grid item xs="auto">
-                <BasicButton text="동영상 파일 선택" />
-            </Grid>
-            <Grid item xs={12} />
-            <Grid item xs="auto">
-                <Typography variant="h6">
-                    또는 파일을 여기에 놔주세요
-                </Typography>
-            </Grid>
-        </Grid>
-    );
-}
-// function UploadStep() {}
-// function TranslationStep() {}
-// function ExtractStep() {}
-// function ResultStep() {}
+
 function ExtractStepper() {
     const [activeStep, setActiveStep] = React.useState(0);
+    const [fileArray, setFileArray] = React.useState([]);
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
+    const handleFiles = acceptedFiles => {
+        const list = fileArray.concat(acceptedFiles);
+        console.log(list);
+        setFileArray(list);
+    };
+
     return (
         <Box
             sx={{
+                display: "flex",
+                flexDirection: "column",
                 border: 1,
                 borderColor: "#e5e5e5",
                 borderRadius: 3,
                 maxWidth: "550px",
-                pt: "1%",
-                pb: "1%",
+                pt: "1rem",
+                pb: "1rem",
             }}
         >
             <Stepper
@@ -69,7 +49,35 @@ function ExtractStepper() {
                     );
                 })}
             </Stepper>
-            <FileSelectStep onClick={handleNext} />
+            {
+                {
+                    0: (
+                        <>
+                            <FileSelectStep getFileArray={handleFiles} />
+                            <Box sx={{ display: "flex" }}>
+                                <VideoItems
+                                    Files={fileArray}
+                                    TranslationDisabled
+                                />
+                            </Box>
+                        </>
+                    ),
+                    1: (
+                        <>
+                            번역 여부를 선택해 주세요
+                            <Box sx={{ display: "flex" }}>
+                                <VideoItems Files={fileArray} />
+                            </Box>
+                        </>
+                    ),
+                }[activeStep]
+            }
+
+            {fileArray.length === 0 ? (
+                <BasicButton text="다음" disabled onClick={handleNext} />
+            ) : (
+                <BasicButton text="다음" onClick={handleNext} />
+            )}
         </Box>
     );
 }

@@ -1,21 +1,55 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useCallback } from "react";
+import { useTheme } from "@mui/material/styles";
 import { useDropzone } from "react-dropzone";
-import { Box } from "@mui/material";
-function DropBox() {
-    const onDrap = useCallback(acceptedFiles => {}, []);
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({
-        onDrop,
-    });~
+import { Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
+import BasicButton from "../atoms/BasicButton";
+
+function DropBox({ handleFiles }) {
+    const theme = useTheme();
+
+    const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
+        noClick: true,
+        noKeyboard: true,
+        onDrop: acceptedFiles => {
+            handleFiles(acceptedFiles);
+        },
+    });
     return (
-        <Box {...getRootProps()}>
+        <Box
+            sx={{
+                display: "flex",
+                border: 2,
+                borderColor: theme.palette.secondary.dark,
+                borderStyle: "dashed",
+                alignItems: "center",
+                flexDirection: "column",
+            }}
+            {...getRootProps()}
+        >
             <input {...getInputProps()} />
-            {isDragActive ? (
-                <p>Drop the files here ...</p>
-            ) : (
-                <p>Drag n drop some files here, or click to select files</p>
-            )}
+
+            <BasicButton
+                sx={{ mt: "1rem" }}
+                text="동영상 파일 선택"
+                variant="contained"
+                onClick={open}
+            />
+            <Box sx={{ mt: "2rem", mb: "1rem" }}>
+                {isDragActive ? (
+                    <Typography variant="subtitle2">
+                        파일을 여기에 놔주세요...
+                    </Typography>
+                ) : (
+                    <Typography variant="subtitle2">
+                        또는 파일을 여기에 놔주세요
+                    </Typography>
+                )}
+            </Box>
         </Box>
     );
 }
+DropBox.propTypes = {
+    handleFiles: PropTypes.func.isRequired,
+};
 export default DropBox;

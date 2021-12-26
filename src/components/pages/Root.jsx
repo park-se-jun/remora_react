@@ -9,6 +9,7 @@ function Root() {
             <BrowserRouter>
                 <Routes>
                     <Route exact path="/" element={<Front />} />
+                    <Route path="/front" element={<Front />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/extract" element={<Extract />} />
                     <Route path="/result" element={<Result />} />

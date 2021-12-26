@@ -3,20 +3,26 @@ import {
     Box,
     /* LinearProgress, */ Step,
     StepLabel,
+    Typography,
+    CircularProgress,
 } from "@mui/material";
 import defaultClient from "modules/DefaultClient";
 import MakeFormData from "modules/MakeFormData";
 import React from "react";
+import { Link } from "react-router-dom";
 
 import BasicButton from "../atoms/BasicButton";
 import FileList from "./FileList";
 import FileSelectStep from "./FileSelectStep";
 
-const steps = ["동영상 선택", "번역 선택", "결과 확인"];
+const steps = ["동영상 선택", "번역 선택", "전송", "결과 확인"];
 
 function ExtractStepper() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [fileArray, setFiles] = React.useState([]);
+    // const [response, setResponse] = React.useState(null);
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState(null);
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
@@ -33,10 +39,21 @@ function ExtractStepper() {
         );
     };
     const submitForm = file => {
+        setLoading(true);
         const formData = MakeFormData(file);
         defaultClient
             .post("/upload", formData)
-            .then(response => console.log(response));
+            .then(result => {
+                setLoading(false);
+                console.log(result);
+                handleNext();
+            })
+            .catch(err => {
+                setLoading(false);
+                setError(err);
+                console.log(err);
+                handleNext();
+            });
     };
     return (
         <Box
@@ -96,9 +113,75 @@ function ExtractStepper() {
                             </Box>
                             <BasicButton
                                 text="제출"
-                                onClick={() => submitForm(fileArray)}
+                                onClick={() => {
+                                    submitForm(fileArray);
+                                    handleNext();
+                                }}
                             />
                         </>
+                    ),
+                    2: (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                            }}
+                        >
+                            {loading ? (
+                                <>
+                                    <CircularProgress />
+                                    <Typography variant="h6">
+                                        파일을 전송중 입니다...
+                                    </Typography>
+                                </>
+                            ) : (
+                                <Typography variant="h6">전송완료!</Typography>
+                            )}
+                        </Box>
+                    ),
+                    3: error ? (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                            }}
+                        >
+                            추출에 실패했습니다...
+                            <BasicButton
+                                text="front페이지로 돌아가기"
+                                to="/front"
+                                component={Link}
+                            />
+                        </Box>
+                    ) : (
+                        <Box
+                            sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Typography variant="h6">
+                                추출이 완료되었습니다.
+                            </Typography>
+                            <BasicButton
+                                sx={{
+                                    bgcolor: "secondary.dark",
+                                    height: 1,
+                                    p: 3,
+                                    borderRadius: 4,
+                                    fontWeight: "fontWeightBold",
+                                    maxWeight: "300px",
+                                    minWeight: "300px",
+                                }}
+                                text="동영상속 텍스트를 추출하러 가기 ->"
+                                to="/result"
+                                size="lg"
+                                component={Link}
+                            />
+                        </Box>
                     ),
                 }[activeStep]
             }

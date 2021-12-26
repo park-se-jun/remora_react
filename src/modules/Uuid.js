@@ -1,5 +1,5 @@
 /*eslint-disable*/
-export default function uuidv4() {
+export default function Uuidv4() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
         /[xy]/g,
         function (c) {

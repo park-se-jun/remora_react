@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-import uuidv4 from "modules/uuid";
+import uuidv4 from "modules/Uuid";
 import { useTheme } from "@mui/material/styles";
 import { useDropzone } from "react-dropzone";
 import { Box, Typography } from "@mui/material";
@@ -11,6 +11,7 @@ function DropBox({ handleFiles }) {
     const theme = useTheme();
 
     const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
+        // accept: "video/*",
         noClick: true,
         noKeyboard: true,
         onDrop: acceptedFiles => {

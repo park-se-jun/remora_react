@@ -4,6 +4,8 @@ import {
     /* LinearProgress, */ Step,
     StepLabel,
 } from "@mui/material";
+import defaultClient from "modules/DefaultClient";
+import MakeFormData from "modules/MakeFormData";
 import React from "react";
 
 import BasicButton from "../atoms/BasicButton";
@@ -30,7 +32,12 @@ function ExtractStepper() {
             }),
         );
     };
-
+    const submitForm = file => {
+        const formData = MakeFormData(file);
+        defaultClient
+            .post("/upload", formData)
+            .then(response => console.log(response));
+    };
     return (
         <Box
             sx={{
@@ -67,6 +74,15 @@ function ExtractStepper() {
                                     TranslationDisabled
                                 />
                             </Box>
+                            {fileArray.length === 0 ? (
+                                <BasicButton
+                                    text="다음"
+                                    disabled
+                                    onClick={handleNext}
+                                />
+                            ) : (
+                                <BasicButton text="다음" onClick={handleNext} />
+                            )}
                         </>
                     ),
                     1: (
@@ -78,16 +94,14 @@ function ExtractStepper() {
                                     onTranslate={setTranslate}
                                 />
                             </Box>
+                            <BasicButton
+                                text="제출"
+                                onClick={() => submitForm(fileArray)}
+                            />
                         </>
                     ),
                 }[activeStep]
             }
-
-            {fileArray.length === 0 ? (
-                <BasicButton text="다음" disabled onClick={handleNext} />
-            ) : (
-                <BasicButton text="다음" onClick={handleNext} />
-            )}
         </Box>
     );
 }

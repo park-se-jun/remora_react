@@ -18,5 +18,5 @@
 | needTranslation      | bool           |
 
 ```javascript
-GET / upload;
+POST / upload;
 ```

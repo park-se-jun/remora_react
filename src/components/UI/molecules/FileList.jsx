@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import PropTypes from "prop-types";
 import FileInfo from "../atoms/FileInfo";
 
@@ -11,7 +12,15 @@ export default function FileList({
     TranslationDisabled: isDisabled,
 }) {
     return (
-        <>
+        <Box
+            sx={{
+                mt: "1rem",
+                mb: "1rem",
+                display: "flex",
+                overflow: "auto",
+                width: 11.5 / 12,
+            }}
+        >
             {array.map(function callback(file) {
                 return (
                     <FileInfo
@@ -21,7 +30,7 @@ export default function FileList({
                     />
                 );
             })}
-        </>
+        </Box>
     );
 }
 FileList.propTypes = {

@@ -17,8 +17,8 @@ function ResultInfo({ value: result, index: i, onDialogContent, onClick }) {
 
     return (
         <>
-            <Card variant="elevation">
-                <ButtonBase onClick={handleClock}>
+            <ButtonBase onClick={handleClock}>
+                <Card sx={{ height: "100%" }} variant="elevation">
                     <CardContent>
                         <Typography
                             sx={{ fontSize: 12 }}
@@ -39,8 +39,8 @@ function ResultInfo({ value: result, index: i, onDialogContent, onClick }) {
                             })}
                         </List>
                     </CardContent>
-                </ButtonBase>
-            </Card>
+                </Card>
+            </ButtonBase>
         </>
     );
 }

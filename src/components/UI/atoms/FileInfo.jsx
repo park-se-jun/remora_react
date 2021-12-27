@@ -1,6 +1,7 @@
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/styles";
+import EllipsisText from "react-ellipsis-text";
 import PropTypes from "prop-types";
 import TranslationToggleButton from "./TranslationToggleButton";
 
@@ -16,10 +17,14 @@ function FileInfo({ file, onTranslate, disabled: isDisabled }) {
                 border: 1,
                 borderRadius: 2,
                 borderColor: theme.palette.borderColor,
+                justifyContent: "space-between",
+                maxHeight: "9rem",
+                maxWidth: "9rem ",
             }}
         >
-            <VideoLibraryIcon sx={{ fontSize: "8rem" }} />
-            {file.name}
+            <VideoLibraryIcon sx={{ fontSize: "5rem" }} />
+            <EllipsisText text={file.name} length={10} tooltip />
+
             <TranslationToggleButton
                 Translation={file.translation}
                 onClick={() => onTranslate(file.id)}

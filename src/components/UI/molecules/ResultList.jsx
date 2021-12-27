@@ -15,6 +15,8 @@ function ResultList({ value: resultList, onDialogContent, onItemClick }) {
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "space-evenly",
+                mt: "30vh",
+                mb: "30vh",
             }}
         >
             {resultList.map((result, i) => {

@@ -3,18 +3,22 @@ import { PropTypes } from "prop-types";
 
 function PageTemplate({ header, content, footer }) {
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                height: "100vh",
-            }}
-        >
-            {header}
-            {content}
-            {footer}
-        </Box>
+        <>
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+
+                    height: "100vh",
+                }}
+            >
+                {header}
+                {content}
+                {footer}
+            </Box>
+        </>
+
         // <Grid container spacing={2}>
         //     <Grid className="Header" item xs={12}>
         //         {header}

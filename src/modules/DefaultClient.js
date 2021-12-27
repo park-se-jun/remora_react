@@ -4,7 +4,7 @@ const baseURL = (() => {
     if (process.env.NODE_ENV === "development") {
         return "http://20.124.204.171:8080";
     }
-    return "/";
+    return "http://20.124.204.171:8080";
 })();
 
 const defaultClient = axios.create({

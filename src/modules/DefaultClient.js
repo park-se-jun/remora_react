@@ -11,22 +11,4 @@ const defaultClient = axios.create({
     baseURL,
     headers: { "Content-Type": "multipart/form-data" },
 });
-defaultClient.interceptors.request.use(
-    config => {
-        return config;
-    },
-    error => {
-        return Promise.reject(error);
-    },
-);
-
-defaultClient.interceptors.response.use(
-    response => {
-        // 응답 인터셉터
-        return response;
-    },
-    error => {
-        return Promise.reject(error);
-    },
-);
 export default defaultClient;

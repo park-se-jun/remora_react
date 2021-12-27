@@ -113,12 +113,17 @@ function ExtractStepper() {
                 borderColor: "#e5e5e5",
                 borderRadius: 3,
                 maxWidth: "550px",
+                minWidth: "550px",
+                minHeight: "500px",
+                maxHeight: "500px",
+                alignItems: "center",
                 pt: "1rem",
                 pb: "1rem",
+                justifyContent: "space-between",
             }}
         >
             <Stepper
-                sx={{ mt: 1, ml: 2, mr: 2, mb: 4 }}
+                sx={{ width: "90%", mt: 1, mb: 4 }}
                 activeStep={activeStep}
             >
                 {steps.map(label => {
@@ -134,33 +139,33 @@ function ExtractStepper() {
                     0: (
                         <>
                             <FileSelectStep getFileArray={getFiles} />
-                            <Box sx={{ display: "flex" }}>
-                                <FileList
-                                    Files={fileArray}
-                                    TranslationDisabled
-                                />
-                            </Box>
+                            <FileList Files={fileArray} TranslationDisabled />
+
                             {fileArray.length === 0 ? (
                                 <BasicButton
+                                    sx={{ width: 11.5 / 12 }}
                                     text="다음"
                                     disabled
                                     onClick={handleNext}
                                 />
                             ) : (
-                                <BasicButton text="다음" onClick={handleNext} />
+                                <BasicButton
+                                    sx={{ width: 11.5 / 12 }}
+                                    text="다음"
+                                    onClick={handleNext}
+                                />
                             )}
                         </>
                     ),
                     1: (
                         <>
                             번역 여부를 선택해 주세요
-                            <Box sx={{ display: "flex" }}>
-                                <FileList
-                                    Files={fileArray}
-                                    onTranslate={setTranslate}
-                                />
-                            </Box>
+                            <FileList
+                                Files={fileArray}
+                                onTranslate={setTranslate}
+                            />
                             <BasicButton
+                                sx={{ width: 11.5 / 12 }}
                                 text="제출"
                                 onClick={() => {
                                     submitForm(fileArray);
@@ -170,13 +175,7 @@ function ExtractStepper() {
                         </>
                     ),
                     2: (
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                            }}
-                        >
+                        <>
                             {loading ? (
                                 <>
                                     <CircularProgress />
@@ -189,24 +188,18 @@ function ExtractStepper() {
                             ) : (
                                 <Typography variant="h6">전송완료!</Typography>
                             )}
-                        </Box>
+                        </>
                     ),
                     3: error ? (
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                            }}
-                        >
+                        <>
                             <Typography variant="h6">
                                 추출에 실패했습니다...
                             </Typography>
 
                             <BasicButton
                                 sx={{
+                                    width: 11.5 / 12,
                                     bgcolor: "secondary.dark",
-                                    height: 1,
                                     borderRadius: 3,
                                     fontWeight: "fontWeightBold",
                                 }}
@@ -214,7 +207,7 @@ function ExtractStepper() {
                                 to="/front"
                                 component={Link}
                             />
-                        </Box>
+                        </>
                     ) : (
                         <Box
                             sx={{

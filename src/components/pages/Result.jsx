@@ -1,8 +1,15 @@
+import PageTemplate from "components/templates/PageTemplate";
+import RemoraFooter from "components/UI/molecules/RemoraFooter";
+import RemoraHeader from "components/UI/molecules/RemoraHeader";
+import ResultContent from "components/UI/organisms/ResultContent";
+
 function Result() {
     return (
-        <div className="Result" style={{ padding: "1rem 0" }}>
-            <h2>Result 페이지 입니다.</h2>
-        </div>
+        <PageTemplate
+            header={<RemoraHeader index={2} />}
+            content={<ResultContent />}
+            footer={<RemoraFooter />}
+        />
     );
 }
 export default Result;

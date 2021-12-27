@@ -12,8 +12,9 @@ function Root() {
                     <Route path="/front" element={<Front />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/extract" element={<Extract />} />
-                    <Route path="/result" element={<Result />} />
+                    <Route path="/extract/result" element={<Result />} />
                     <Route path="/test" element={<Test />} />
+
                     {/* [테스트] 반드시 지워주기 */}
                 </Routes>
             </BrowserRouter>

@@ -235,6 +235,9 @@ function ExtractStepper() {
                                 }}
                                 text="결과 확인"
                                 to="/extract/result"
+                                state={{
+                                    res: response,
+                                }}
                                 size="lg"
                                 component={Link}
                             />

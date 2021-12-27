@@ -1,7 +1,7 @@
 import {
     Stepper,
     Box,
-    /* LinearProgress, */ Step,
+    Step,
     StepLabel,
     Typography,
     CircularProgress,
@@ -12,6 +12,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import BasicButton from "../atoms/BasicButton";
+import MyProgress from "../atoms/MyProgress";
 import FileList from "./FileList";
 import FileSelectStep from "./FileSelectStep";
 
@@ -20,9 +21,14 @@ const steps = ["동영상 선택", "번역 선택", "전송", "결과 확인"];
 function ExtractStepper() {
     const [activeStep, setActiveStep] = React.useState(0);
     const [fileArray, setFiles] = React.useState([]);
-    // const [response, setResponse] = React.useState(null);
+    /*  submit 관련 status     */
+    const [response, setResponse] = React.useState(null);
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState(null);
+    /*  progress 관련 status     */
+    const [progress, setProgress] = React.useState(0);
+    const [timerId, setTimerId] = React.useState(null);
+
     const handleNext = () => {
         setActiveStep(prevActiveStep => prevActiveStep + 1);
     };
@@ -38,7 +44,48 @@ function ExtractStepper() {
             }),
         );
     };
+    const timer = () => {
+        setProgress(oldProgress => {
+            if (oldProgress < 98) {
+                const diff = 100 - oldProgress;
+                const inc = diff / (10 + oldProgress * (1 + oldProgress / 100));
+                return oldProgress + inc;
+            }
+            return oldProgress;
+        });
+        setTimerId(setTimeout(timer, 50));
+    };
+    const setupClient = () => {
+        defaultClient.interceptors.request.use(
+            config => {
+                setProgress(0);
+                timer();
+                return config;
+            },
+            err => {
+                return Promise.reject(err);
+            },
+        );
+
+        defaultClient.interceptors.response.use(
+            res => {
+                // 응답 인터셉터
+                if (timerId) {
+                    clearTimeout(timerId);
+                    setTimerId(null);
+                }
+                setProgress(100);
+                return res;
+            },
+            err => {
+                setProgress(100);
+                return Promise.reject(err);
+            },
+        );
+    };
+
     const submitForm = file => {
+        setupClient();
         setLoading(true);
         const formData = MakeFormData(file);
         defaultClient
@@ -46,11 +93,13 @@ function ExtractStepper() {
             .then(result => {
                 setLoading(false);
                 console.log(result);
+                setResponse(result);
                 handleNext();
             })
             .catch(err => {
                 setLoading(false);
-                setError(err);
+                setError(err); //  원래는 setError(err_로 해야 함
+                console.log(response);
                 console.log(err);
                 handleNext();
             });
@@ -134,6 +183,8 @@ function ExtractStepper() {
                                     <Typography variant="h6">
                                         파일을 전송중 입니다...
                                     </Typography>
+
+                                    <MyProgress value={progress} />
                                 </>
                             ) : (
                                 <Typography variant="h6">전송완료!</Typography>
@@ -148,8 +199,17 @@ function ExtractStepper() {
                                 alignItems: "center",
                             }}
                         >
-                            추출에 실패했습니다...
+                            <Typography variant="h6">
+                                추출에 실패했습니다...
+                            </Typography>
+
                             <BasicButton
+                                sx={{
+                                    bgcolor: "secondary.dark",
+                                    height: 1,
+                                    borderRadius: 3,
+                                    fontWeight: "fontWeightBold",
+                                }}
                                 text="front페이지로 돌아가기"
                                 to="/front"
                                 component={Link}
@@ -170,14 +230,11 @@ function ExtractStepper() {
                                 sx={{
                                     bgcolor: "secondary.dark",
                                     height: 1,
-                                    p: 3,
-                                    borderRadius: 4,
+                                    borderRadius: 3,
                                     fontWeight: "fontWeightBold",
-                                    maxWeight: "300px",
-                                    minWeight: "300px",
                                 }}
-                                text="동영상속 텍스트를 추출하러 가기 ->"
-                                to="/result"
+                                text="결과 확인"
+                                to="/extract/result"
                                 size="lg"
                                 component={Link}
                             />

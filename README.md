@@ -1,4 +1,6 @@
 # Getting Started with Create React App
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpark-se-jun%2Fremora_react.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpark-se-jun%2Fremora_react?ref=badge_shield)
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -84,3 +86,7 @@ statefull 한 컴포넌트 : 프로그레스바, 파일 미리보기, 번연여�
 ### 라이센스
 
 MIT
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpark-se-jun%2Fremora_react.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpark-se-jun%2Fremora_react?ref=badge_large)

@@ -20,24 +20,38 @@ function ResultInfo({ value: result, index: i, onDialogContent, onClick }) {
             <ButtonBase onClick={handleClock}>
                 <Card sx={{ height: "100%" }} variant="elevation">
                     <CardContent>
-                        <Typography
-                            sx={{ fontSize: 12 }}
-                            color="text.secondary"
-                        >
-                            {i + 1} 번째 파일의 키워드
-                        </Typography>
-                        <List>
-                            {result.keywords.map(keyword => {
-                                return (
-                                    <Typography
-                                        variant="h5"
-                                        component={ListItem}
-                                    >
-                                        {keyword}
-                                    </Typography>
-                                );
-                            })}
-                        </List>
+                        {result.success ? (
+                            <>
+                                <Typography
+                                    sx={{ fontSize: 12 }}
+                                    color="text.secondary"
+                                >
+                                    {i + 1} 번째 파일의 키워드
+                                </Typography>
+                                <List>
+                                    {result.keywords.map(keyword => {
+                                        return (
+                                            <Typography
+                                                variant="h5"
+                                                component={ListItem}
+                                            >
+                                                {keyword}
+                                            </Typography>
+                                        );
+                                    })}
+                                </List>
+                            </>
+                        ) : (
+                            <Typography
+                                sx={{ fontSize: 12 }}
+                                color="text.secondary"
+                            >
+                                {i + 1}
+                                {`번째 영상은
+
+                                 문자 검출에 실패했습니다`}
+                            </Typography>
+                        )}
                     </CardContent>
                 </Card>
             </ButtonBase>

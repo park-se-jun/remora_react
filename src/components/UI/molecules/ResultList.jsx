@@ -17,6 +17,7 @@ function ResultList({ value: resultList, onDialogContent, onItemClick }) {
                 justifyContent: "space-evenly",
                 mt: "30vh",
                 mb: "30vh",
+                width: "100vh",
             }}
         >
             {resultList.map((result, i) => {

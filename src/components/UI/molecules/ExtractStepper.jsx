@@ -211,32 +211,28 @@ function ExtractStepper() {
                             />
                         </>
                     ) : (
-                        <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                                alignItems: "center",
-                            }}
-                        >
+                        <>
                             <Typography variant="h6">
                                 추출이 완료되었습니다.
                             </Typography>
-                            <BasicButton
-                                sx={{
-                                    bgcolor: "secondary.dark",
-                                    height: 1,
-                                    borderRadius: 3,
-                                    fontWeight: "fontWeightBold",
-                                }}
-                                text="결과 확인"
-                                to="/extract/result"
-                                state={{
-                                    res: response,
-                                }}
-                                size="lg"
-                                component={Link}
-                            />
-                        </Box>
+                            <Box>
+                                <BasicButton
+                                    sx={{
+                                        bgcolor: "secondary.dark",
+                                        height: 1,
+                                        borderRadius: 3,
+                                        fontWeight: "fontWeightBold",
+                                    }}
+                                    text="결과 확인"
+                                    to="/extract/result"
+                                    state={{
+                                        res: response,
+                                    }}
+                                    size="lg"
+                                    component={Link}
+                                />
+                            </Box>
+                        </>
                     ),
                 }[activeStep]
             }

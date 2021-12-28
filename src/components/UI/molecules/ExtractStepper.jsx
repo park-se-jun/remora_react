@@ -93,7 +93,9 @@ function ExtractStepper() {
             .then(result => {
                 setLoading(false);
                 console.log(result);
-                setResponse(result);
+                console.log(result.data);
+                setResponse(result.data);
+
                 handleNext();
             })
             .catch(err => {

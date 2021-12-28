@@ -1,7 +1,10 @@
 // import PropTypes from "prop-types";
 
+import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
+import BasicButton from "../atoms/BasicButton";
 import MyDialog from "../atoms/myDialog";
 import LinkToExtractButton from "../molecules/LinkToExtractButton";
 import ResultList from "../molecules/ResultList";
@@ -29,21 +32,49 @@ function ResultContent() {
     const handleDialogContent = content => {
         setDialogContent(content);
     };
-    return res ? (
-        <>
-            <ResultList
-                value={res.res}
-                onDialogContent={handleDialogContent}
-                onItemClick={handleOpen}
-            />
-
-            <MyDialog open={open} onClose={handleClose} value={dialogContent} />
-        </>
-    ) : (
-        <>
-            결과를 확인할 수 없습니다. 추출을 먼저 해주세요!!
-            <LinkToExtractButton />
-        </>
+    return (
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-evenly",
+                alignItems: "center",
+                mt: "30vh",
+                mb: "30vh",
+                height: "40vh",
+            }}
+        >
+            {res ? (
+                <>
+                    <ResultList
+                        value={res.res}
+                        onDialogContent={handleDialogContent}
+                        onItemClick={handleOpen}
+                    />
+                    <Box>
+                        <BasicButton
+                            text="front page"
+                            to="/front"
+                            component={Link}
+                        />
+                    </Box>
+                    <MyDialog
+                        open={open}
+                        onClose={handleClose}
+                        value={dialogContent}
+                    />
+                </>
+            ) : (
+                <>
+                    <Typography>
+                        결과를 확인할 수 없습니다. 추출을 먼저 해주세요!!
+                    </Typography>
+                    <Box>
+                        <LinkToExtractButton />
+                    </Box>
+                </>
+            )}
+        </Box>
     );
 }
 export default ResultContent;

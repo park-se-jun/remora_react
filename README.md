@@ -7,6 +7,7 @@
 Remora는 영상 OCR 기술과 기계번역 기술을 사용해 동영상으로부터 텍스트를 추출해 이용자에게 제공하는 프로젝트 입니다. react로 front-end를 구현하였고 Spring으로 back-end를 구현하였습니다.
 
 [페이지 링크](http://remora-223.herokuapp.com)
+지금은 임시로 닫아놨습니다.
 
 ## API
 

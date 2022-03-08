@@ -3,10 +3,19 @@ import { Box } from "@mui/material";
 import { useTheme } from "@mui/styles";
 import EllipsisText from "react-ellipsis-text";
 import PropTypes from "prop-types";
+import { BasicProps, MyFile } from "interfaces/MyTypes";
+import { useDispatch } from "components/store/Store";
 import TranslationToggleButton from "./TranslationToggleButton";
 
-function FileInfo({ file, onTranslate, disabled: isDisabled }) {
+interface FileInfoProps extends BasicProps {
+    file: MyFile;
+}
+function FileInfo({ file }: FileInfoProps) {
     const theme = useTheme();
+    const dispatch = useDispatch();
+    const changeTranslate = () => {
+        dispatch({ type: "TRANSLATE_CHANGE", file });
+    };
     return (
         <Box
             sx={{
@@ -16,7 +25,7 @@ function FileInfo({ file, onTranslate, disabled: isDisabled }) {
                 flexWrap: "nowrap",
                 border: 1,
                 borderRadius: 2,
-                borderColor: theme.palette.borderColor,
+                borderColor: theme.palette.primary.contrastText,
                 justifyContent: "space-between",
                 maxHeight: "9rem",
                 maxWidth: "9rem ",
@@ -27,8 +36,7 @@ function FileInfo({ file, onTranslate, disabled: isDisabled }) {
 
             <TranslationToggleButton
                 Translation={file.translation}
-                onClick={() => onTranslate(file.id)}
-                disabled={isDisabled}
+                onClick={changeTranslate}
             />
         </Box>
     );
@@ -41,9 +49,4 @@ FileInfo.propTypes = {
         id: PropTypes.string.isRequired,
         translation: PropTypes.bool.isRequired,
     }).isRequired,
-    onTranslate: PropTypes.func.isRequired,
-    disabled: PropTypes.bool,
-};
-FileInfo.defaultProps = {
-    disabled: false,
 };

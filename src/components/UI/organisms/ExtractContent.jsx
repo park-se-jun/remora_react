@@ -1,5 +1,6 @@
-const { Box } = require("@mui/material");
-const { default: ExtractStepper } = require("../molecules/ExtractStepper");
+import { Box } from "@mui/material";
+import StoreContextProvider from "components/store/Store";
+import ExtractStepper from "../molecules/ExtractStepper";
 
 function ExtractContent() {
     return (
@@ -13,7 +14,9 @@ function ExtractContent() {
                 mb: "30vh",
             }}
         >
-            <ExtractStepper />
+            <StoreContextProvider>
+                <ExtractStepper />
+            </StoreContextProvider>
         </Box>
     );
 }

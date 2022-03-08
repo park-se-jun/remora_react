@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
-
 import uuidv4 from "modules/Uuid";
 import { useTheme } from "@mui/material/styles";
 import { useDropzone } from "react-dropzone";
 import { Box, Typography } from "@mui/material";
-import PropTypes from "prop-types";
+import { useDispatch } from "components/store/Store";
 import BasicButton from "../atoms/BasicButton";
+import FileList from "./FileList";
 
-function DropBox({ handleFiles }) {
+function DropBox() {
+    const dispatch = useDispatch();
     const theme = useTheme();
 
     const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
@@ -15,10 +16,10 @@ function DropBox({ handleFiles }) {
         noClick: true,
         noKeyboard: true,
         onDrop: acceptedFiles => {
-            const files = acceptedFiles.map(file =>
+            const files = acceptedFiles.map((file: File) =>
                 Object.assign(file, { id: uuidv4(), translation: true }),
             );
-            handleFiles(files);
+            dispatch({ type: "ADD_FILE", files });
         },
     });
     return (
@@ -35,12 +36,9 @@ function DropBox({ handleFiles }) {
         >
             <input {...getInputProps()} />
 
-            <BasicButton
-                sx={{ mt: "1rem" }}
-                text="동영상 파일 선택"
-                variant="contained"
-                onClick={open}
-            />
+            <BasicButton sx={{ mt: "1rem" }} variant="contained" onClick={open}>
+                동영상 파일 선택
+            </BasicButton>
             <Box sx={{ mt: "2rem", mb: "1rem" }}>
                 {isDragActive ? (
                     <Typography variant="subtitle2">
@@ -55,7 +53,4 @@ function DropBox({ handleFiles }) {
         </Box>
     );
 }
-DropBox.propTypes = {
-    handleFiles: PropTypes.func.isRequired,
-};
 export default DropBox;

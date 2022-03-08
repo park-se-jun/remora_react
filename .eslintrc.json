@@ -5,28 +5,58 @@
         "node": true,
         "jest/globals": true
     },
+    "plugins": ["jest", "@typescript-eslint"],
     "extends": [
         "eslint:recommended",
         "airbnb",
         "plugin:prettier/recommended",
-        "plugin:react/jsx-runtime"
+        "plugin:react/jsx-runtime",
+        "plugin:@typescript-eslint/recommended"
     ],
-    "parser": "babel-eslint",
+
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "parser": "@typescript-eslint/parser"
+    },
+
     "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [".jsx", ".tsx"]
+            }
+        ],
         "no-console": 0,
         "prettier/prettier": [
             "error",
             {
                 "endOfLine": "auto"
             }
+        ],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never",
+                "json": "never"
+            }
         ]
     },
     "settings": {
         "import/resolver": {
             "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"],
                 "paths": ["src"]
             }
         }
-    },
-    "plugins": ["jest"]
+    }
 }

@@ -4,25 +4,21 @@ import { ThemeProvider } from "@mui/material";
 import theme from "components/UI/atoms/BasicTheme";
 import FileSelectStep from "components/UI/molecules/FileSelectStep";
 import SendingStep from "components/UI/molecules/SendingStep";
+import ErrorPage from "components/UI/molecules/ErrorPage";
 import SuccessPage from "components/UI/molecules/SuccessPage";
-import FailPage from "components/UI/molecules/FailPage";
 
 function Root() {
     return (
         <ThemeProvider theme={theme}>
             <BrowserRouter>
                 <Routes>
-                    <Route exact path="/" element={<Front />} />
+                    <Route path="/" element={<Front />} />
                     <Route path="/front" element={<Front />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/extract" element={<Extract />}>
                         <Route path="" element={<FileSelectStep />} />
-                        <Route path="uploading" element={<SendingStep />} />
-                        <Route path="uploading/fail" element={<FailPage />} />
-                        <Route
-                            path="uploading/success"
-                            element={<SuccessPage />}
-                        />
+                        <Route path="success" element={<SuccessPage />} />
+                        <Route path="error" element={<ErrorPage />} />
                     </Route>
                     <Route path="/extract/result" element={<Result />} />
                     {/* <Route path="/test" element={<Test />} />

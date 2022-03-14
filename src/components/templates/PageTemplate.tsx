@@ -1,7 +1,12 @@
 import { Box } from "@mui/material";
-import { PropTypes } from "prop-types";
 
-function PageTemplate({ header, content, footer }) {
+interface PageTemplateProps {
+    header: JSX.Element;
+    content: JSX.Element;
+    footer: JSX.Element;
+}
+
+function PageTemplate({ header, content, footer }: PageTemplateProps) {
     return (
         <>
             <Box
@@ -33,14 +38,4 @@ function PageTemplate({ header, content, footer }) {
     );
 }
 
-PageTemplate.propTypes = {
-    header: PropTypes.element,
-    content: PropTypes.element,
-    footer: PropTypes.element,
-};
-PageTemplate.defaultProps = {
-    header: <Box />,
-    content: <Box />,
-    footer: <Box />,
-};
 export default PageTemplate;

@@ -2,8 +2,7 @@ import { Tabs, Tab, AppBar } from "@mui/material";
 // import { withStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import React from "react";
-import { PropTypes } from "prop-types";
-import styled from "@emotion/styled";
+import PropTypes from "prop-types";
 // function LinkTab(props) {
 //     return <Tab component></Tab>;
 // }
@@ -17,9 +16,7 @@ import styled from "@emotion/styled";
 //         },
 //     },
 // };
-const CustomTab = styled(Tab)`
-    babground-color: #e5e5e5;
-`;
+
 function RemoraHeader({ index }) {
     const [value, setValue] = React.useState(index);
     const handleChange = (event, newValue) => {
@@ -34,14 +31,14 @@ function RemoraHeader({ index }) {
                 variant="fullWidth"
                 onChange={handleChange}
             >
-                <CustomTab
+                <Tab
                     sx={{ flexGrow: 4 }}
                     label="Remora"
                     to="/"
                     component={Link}
                 />
-                <CustomTab label="about" to="/about" component={Link} />
-                <CustomTab
+                <Tab label="about" to="/about" component={Link} />
+                <Tab
                     label="text extract from video"
                     to="/extract"
                     component={Link}

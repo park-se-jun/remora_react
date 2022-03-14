@@ -52,11 +52,9 @@ function ResultContent() {
                         onItemClick={handleOpen}
                     />
                     <Box>
-                        <BasicButton
-                            text="front page"
-                            to="/front"
-                            component={Link}
-                        />
+                        <BasicButton to="/front" component={Link}>
+                            front page
+                        </BasicButton>
                     </Box>
                     <MyDialog
                         open={open}

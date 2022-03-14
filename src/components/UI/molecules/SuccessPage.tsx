@@ -6,7 +6,7 @@ import BasicButton from "../atoms/BasicButton";
 
 function SuccessPage() {
     const dispatch = useDispatch();
-    const { step } = useStoreState();
+    const { step, resultList } = useStoreState();
     useEffect(() => {
         if (step !== 2) dispatch({ type: "SET_STEP", step: 2 });
     });
@@ -27,9 +27,9 @@ function SuccessPage() {
                     fontWeight: "fontWeightBold",
                 }}
                 to="/extract/result"
-                // state={{
-                //     res: response,
-                // }}
+                state={{
+                    res: resultList,
+                }}
                 size="large"
                 component={Link}
             >

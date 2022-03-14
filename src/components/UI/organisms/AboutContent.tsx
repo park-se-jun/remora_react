@@ -19,6 +19,17 @@ const src = `# Remora
 `;
 
 function AboutContent() {
+    const markdownStyle = {
+        Width: "80%",
+        minHeight: "1000px",
+        mt: "50vh",
+        mb: "50vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
+    } as const;
+
     return (
         <Box
             sx={{
@@ -31,18 +42,7 @@ function AboutContent() {
             }}
         >
             <LinkToExtractButton />
-            <Box
-                sx={{
-                    Width: "80%",
-                    minHeight: "1000px",
-                    mt: "50vh",
-                    mb: "50vh",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                }}
-            >
+            <Box sx={markdownStyle}>
                 <ReactMarkdown>{src}</ReactMarkdown>
             </Box>
             <LinkToExtractButton />

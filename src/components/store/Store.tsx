@@ -1,4 +1,3 @@
-import ResultList from "components/UI/molecules/ResultList";
 import {
     BasicProps,
     MyAction,
@@ -7,11 +6,20 @@ import {
     StoreState,
 } from "interfaces/MyTypes";
 import { createContext, useContext, useReducer } from "react";
+import {
+    ADD_FILE,
+    CLEAR_STATE,
+    SET_ERROR,
+    SET_RESULT,
+    SET_STEP,
+    TRANSLATE_CHANGE,
+} from "./ActionType";
 /* eslint-disable react/prop-types */
 const initialState: StoreState = {
     fileList: [],
     step: 0,
-    ResultList: [],
+    resultList: undefined,
+    error: undefined,
 };
 function changeTranslate(fileArray: Array<MyFile>, id: string) {
     return fileArray.map(file => {
@@ -22,31 +30,37 @@ function changeTranslate(fileArray: Array<MyFile>, id: string) {
 }
 function reducer(state: StoreState, action: MyAction): StoreState {
     switch (action.type) {
-        case "ADD_FILE":
+        case ADD_FILE:
             return {
                 ...state,
                 fileList: state.fileList.concat(action.files),
             };
-        case "SET_STEP":
+        case SET_STEP:
             return {
                 ...state,
                 step: action.step,
             };
-        case "TRANSLATE_CHANGE": {
+        case TRANSLATE_CHANGE: {
             return {
                 ...state,
                 fileList: changeTranslate(state.fileList, action.file.id),
             };
         }
-        case "SET_RESULT": {
+        case SET_RESULT: {
             return {
                 ...state,
-                ResultList: action.resultList,
+                resultList: action.resultList,
             };
         }
-        case "CLEAR_STATE": {
+        case CLEAR_STATE: {
             return {
                 ...initialState,
+            };
+        }
+        case SET_ERROR: {
+            return {
+                ...state,
+                error: action.error,
             };
         }
         default:
@@ -64,7 +78,8 @@ const StoreContextProvider = ({ children }: BasicProps) => {
             value={{
                 step: state.step,
                 fileList: state.fileList,
-                ResultList: state.ResultList,
+                resultList: state.resultList,
+                error: state.error,
             }}
         >
             <DispatchContext.Provider value={dispatch}>

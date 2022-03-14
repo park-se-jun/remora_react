@@ -3,7 +3,6 @@ import BasicButton from "../atoms/BasicButton";
 
 const style = {
     bgcolor: "secondary.dark",
-    height: 1,
     p: 3,
     borderRadius: 4,
     fontWeight: "fontWeightBold",

@@ -35,13 +35,12 @@ function ExtractStepper() {
                 minWidth: "550px",
                 minHeight: "500px",
                 maxHeight: "500px",
-                alignItems: "center",
-                pt: "1rem",
-                pb: "1rem",
+                alignItems: "stretch",
+                padding: "1rem",
                 justifyContent: "space-between",
             }}
         >
-            <Stepper sx={{ width: "90%", mt: 1, mb: 4 }} activeStep={step}>
+            <Stepper activeStep={step}>
                 {steps.map(label => {
                     return (
                         <Step key={label}>

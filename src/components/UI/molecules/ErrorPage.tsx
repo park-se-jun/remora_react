@@ -12,7 +12,9 @@ function ErrorPage() {
     });
     return (
         <>
-            <Typography variant="h6">추출에 실패했습니다...</Typography>
+            <Typography align="center" variant="h6">
+                추출에 실패했습니다...
+            </Typography>
 
             <BasicButton
                 sx={{

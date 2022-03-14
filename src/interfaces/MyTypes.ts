@@ -16,18 +16,20 @@ export type MyResult = {
     keyword: Array<string>;
     needTranslation: boolean;
 };
+
 export type MyAction =
     | { type: "TRANSLATE_CHANGE"; file: MyFile }
     | { type: "ADD_FILE"; files: Array<MyFile> }
     | { type: "SET_STEP"; step: number }
     | { type: "SET_RESULT"; resultList: Array<MyResult> }
-    | { type: "CLEAR_STATE" };
+    | { type: "CLEAR_STATE" }
+    | { type: "SET_ERROR"; error: any };
 
 export type MyDispatch = Dispatch<MyAction>;
 
-export type SucessOrFail = "success" | "fail" | null;
 export type StoreState = {
     fileList: Array<MyFile>;
     step: number;
-    ResultList: Array<MyResult>;
+    resultList: Array<MyResult> | null | undefined;
+    error: any;
 };

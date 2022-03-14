@@ -31,6 +31,9 @@ function DropBox() {
                 borderStyle: "dashed",
                 alignItems: "center",
                 flexDirection: "column",
+                height: 1,
+                padding: "1rem",
+                margin: "1rem",
             }}
             {...getRootProps()}
         >
@@ -50,6 +53,7 @@ function DropBox() {
                     </Typography>
                 )}
             </Box>
+            <FileList />
         </Box>
     );
 }

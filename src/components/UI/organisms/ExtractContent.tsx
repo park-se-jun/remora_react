@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import StoreContextProvider from "components/store/Store";
+import StoreContextProvider from "store/Store";
 import ExtractStepper from "../molecules/ExtractStepper";
 
 function ExtractContent() {

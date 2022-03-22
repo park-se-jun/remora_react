@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { useDispatch, useStoreState } from "components/store/Store";
+import { useDispatch, useStoreState } from "store/Store";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import BasicButton from "../atoms/BasicButton";

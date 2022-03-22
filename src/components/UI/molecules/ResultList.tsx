@@ -1,14 +1,21 @@
 import { Box } from "@mui/material";
+import { MyResult } from "interfaces/MyTypes";
 import PropTypes from "prop-types";
+import { setCurrContent, setIsDialogOpen } from "store/ActionCreator";
+import { useResultDispatch, useResultStoreState } from "store/ResultSotre";
 import ResultInfo from "../atoms/ResultInfo";
 
-function ResultList({ value: resultList, onDialogContent, onItemClick }) {
-    const handleItemClick = () => {
-        onItemClick();
-    };
-    const handleDialogContent = content => {
-        onDialogContent(content);
-    };
+type ResultListProps = {
+    value: Array<MyResult>;
+};
+function ResultList({ value: resultList }: ResultListProps) {
+    const { resultList: list } = useResultStoreState();
+    console.log(list);
+    const resultDispatch = useResultDispatch();
+    function itemClickCallback(currResult: MyResult) {
+        resultDispatch(setIsDialogOpen(true));
+        resultDispatch(setCurrContent(currResult));
+    }
     return (
         <Box
             sx={{
@@ -23,10 +30,11 @@ function ResultList({ value: resultList, onDialogContent, onItemClick }) {
             {resultList.map((result, i) => {
                 return (
                     <ResultInfo
-                        value={result}
+                        result={result}
                         index={i}
-                        onDialogContent={handleDialogContent}
-                        onClick={handleItemClick}
+                        onClick={() => {
+                            itemClickCallback(result);
+                        }}
                     />
                 );
             })}
@@ -46,11 +54,7 @@ ResultList.propTypes = {
             needTranslation: PropTypes.bool,
         }),
     ),
-    onDialogContent: PropTypes.func,
-    onItemClick: PropTypes.func,
 };
 ResultList.defaultProps = {
     value: null,
-    onDialogContent: null,
-    onItemClick: null,
 };

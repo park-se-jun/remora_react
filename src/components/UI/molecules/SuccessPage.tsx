@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import { useDispatch, useStoreState } from "components/store/Store";
+import { useDispatch, useStoreState } from "store/Store";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import BasicButton from "../atoms/BasicButton";
 
 function SuccessPage() {
     const dispatch = useDispatch();
-    const { step, resultList } = useStoreState();
+    const { step } = useStoreState();
     useEffect(() => {
         if (step !== 2) dispatch({ type: "SET_STEP", step: 2 });
     });
@@ -27,9 +27,6 @@ function SuccessPage() {
                     fontWeight: "fontWeightBold",
                 }}
                 to="/extract/result"
-                state={{
-                    res: resultList,
-                }}
                 size="large"
                 component={Link}
             >

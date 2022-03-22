@@ -4,7 +4,7 @@ import { useTheme } from "@mui/styles";
 import EllipsisText from "react-ellipsis-text";
 import PropTypes from "prop-types";
 import { BasicProps, MyFile } from "interfaces/MyTypes";
-import { useDispatch } from "components/store/Store";
+import { useDispatch } from "store/Store";
 import TranslationToggleButton from "./TranslationToggleButton";
 
 interface FileInfoProps extends BasicProps {

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import { useDispatch, useStoreState } from "components/store/Store";
+import { useDispatch, useStoreState } from "store/Store";
 import sendingFiles from "modules/SendingFile";
-import { setError, setResult, setStep } from "components/store/ActionCreator";
+import { useResultDispatch } from "store/ResultSotre";
+import { setError, setResult, setStep } from "store/ActionCreator";
 import DropBox from "./DropBox";
 import BasicButton from "../atoms/BasicButton";
 import SendingStep from "./SendingStep";
@@ -12,6 +13,7 @@ export default function FileSelectStep() {
     const [startUpload, setStartUpload] = useState<boolean>(false);
     const [buttonActivation, setButtonActivation] = useState(false);
     const dispatch = useDispatch();
+    const resultDispatch = useResultDispatch();
     useEffect(() => {
         console.log(fileList);
         if (fileList.length !== 0) setButtonActivation(true);
@@ -23,10 +25,10 @@ export default function FileSelectStep() {
         sendingFiles(
             fileList,
             result => {
-                dispatch(setResult(result.data));
+                resultDispatch(setResult(result.data));
             },
             err => {
-                dispatch(setError(err));
+                resultDispatch(setError(err));
             },
         );
     };

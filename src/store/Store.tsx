@@ -18,8 +18,6 @@ import {
 const initialState: StoreState = {
     fileList: [],
     step: 0,
-    resultList: undefined,
-    error: undefined,
 };
 function changeTranslate(fileArray: Array<MyFile>, id: string) {
     return fileArray.map(file => {
@@ -46,23 +44,6 @@ function reducer(state: StoreState, action: MyAction): StoreState {
                 fileList: changeTranslate(state.fileList, action.file.id),
             };
         }
-        case SET_RESULT: {
-            return {
-                ...state,
-                resultList: action.resultList,
-            };
-        }
-        case CLEAR_STATE: {
-            return {
-                ...initialState,
-            };
-        }
-        case SET_ERROR: {
-            return {
-                ...state,
-                error: action.error,
-            };
-        }
         default:
             throw new Error();
     }
@@ -74,14 +55,7 @@ const StoreContextProvider = ({ children }: BasicProps) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     return (
-        <StoreStateContext.Provider
-            value={{
-                step: state.step,
-                fileList: state.fileList,
-                resultList: state.resultList,
-                error: state.error,
-            }}
-        >
+        <StoreStateContext.Provider value={state}>
             <DispatchContext.Provider value={dispatch}>
                 {children}
             </DispatchContext.Provider>

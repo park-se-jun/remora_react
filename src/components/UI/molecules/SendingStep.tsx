@@ -1,12 +1,12 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 // import MyProgress from "../atoms/MyProgress";
-import { useStoreState } from "components/store/Store";
 import { useNavigate } from "react-router";
+import { useResultStoreState } from "store/ResultSotre";
 
 export default function SendingStep() {
     const navigate = useNavigate();
     /*  submit 관련 status     */
-    const { resultList, error } = useStoreState();
+    const { resultList, error } = useResultStoreState();
     if (resultList !== undefined) {
         navigate("success", { replace: true });
         return <></>;

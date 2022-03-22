@@ -1,7 +1,7 @@
 import { Stepper, Box, Step, StepLabel } from "@mui/material";
 
 // import React from "react";
-import { useDispatch, useStoreState } from "components/store/Store";
+import { useDispatch, useStoreState } from "store/Store";
 import { Outlet } from "react-router-dom";
 
 // import BasicButton from "../atoms/BasicButton";

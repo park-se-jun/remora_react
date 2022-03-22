@@ -1,36 +1,26 @@
 // import PropTypes from "prop-types";
 
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
-import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
+import { setCurrContent, setIsDialogOpen } from "store/ActionCreator";
+import {
+    defaultResult,
+    useResultDispatch,
+    useResultStoreState,
+} from "store/ResultSotre";
 import BasicButton from "../atoms/BasicButton";
 import MyDialog from "../atoms/myDialog";
 import LinkToExtractButton from "../molecules/LinkToExtractButton";
 import ResultList from "../molecules/ResultList";
 
 function ResultContent() {
-    const location = useLocation();
-    const [open, setOpen] = useState(false);
-    const [dialogContent, setDialogContent] = useState({
-        success: true,
-        message: "default",
-        code: 0,
-        originResultText: ["default"],
-        translatedResultText: ["default"],
-        keywords: ["default"],
-        needTranslation: true,
-    });
-    const res = location.state;
-    const handleOpen = () => {
-        setOpen(true);
-    };
+    const { resultList, isDialogOpen, currContent } = useResultStoreState();
+    const resultDispatch = useResultDispatch();
+
     const handleClose = () => {
         // setDialogContent(null);
-        setOpen(false);
-    };
-    const handleDialogContent = content => {
-        setDialogContent(content);
+        resultDispatch(setCurrContent(defaultResult));
+        resultDispatch(setIsDialogOpen(false));
     };
     return (
         <Box
@@ -44,22 +34,16 @@ function ResultContent() {
                 height: "40vh",
             }}
         >
-            {res ? (
+            {resultList ? (
                 <>
-                    <ResultList
-                        value={res.res}
-                        onDialogContent={handleDialogContent}
-                        onItemClick={handleOpen}
-                    />
-                    <Box>
-                        <BasicButton to="/front" component={Link}>
-                            front page
-                        </BasicButton>
-                    </Box>
+                    <ResultList value={resultList} />
+                    <BasicButton to="/front" component={Link}>
+                        front page
+                    </BasicButton>
                     <MyDialog
-                        open={open}
+                        open={isDialogOpen}
                         onClose={handleClose}
-                        value={dialogContent}
+                        value={currContent}
                     />
                 </>
             ) : (

@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useStoreState } from "components/store/Store";
+import { useStoreState } from "store/Store";
 import { MyFile } from "interfaces/MyTypes";
 import FileInfo from "../atoms/FileInfo";
 

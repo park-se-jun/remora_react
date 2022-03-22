@@ -1,23 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import {
     ButtonBase,
+    ButtonBaseProps,
     Card,
     CardContent,
     List,
     ListItem,
     Typography,
 } from "@mui/material";
+import { MyResult } from "interfaces/MyTypes";
 import PropTypes from "prop-types";
 
-function ResultInfo({ value: result, index: i, onDialogContent, onClick }) {
-    const handleClock = () => {
-        onClick();
-        onDialogContent(result);
-    };
-
+interface ResultInfoProps extends ButtonBaseProps {
+    result: MyResult;
+    index: number;
+}
+function ResultInfo({ result, index: i, ...props }: ResultInfoProps) {
     return (
         <>
-            <ButtonBase onClick={handleClock}>
+            <ButtonBase {...props}>
                 <Card sx={{ height: "100%" }} variant="elevation">
                     <CardContent>
                         {result.success ? (

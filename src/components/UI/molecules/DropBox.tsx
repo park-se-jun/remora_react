@@ -3,7 +3,7 @@ import uuidv4 from "modules/Uuid";
 import { useTheme } from "@mui/material/styles";
 import { useDropzone } from "react-dropzone";
 import { Box, Typography } from "@mui/material";
-import { useDispatch } from "components/store/Store";
+import { useDispatch } from "store/Store";
 import BasicButton from "../atoms/BasicButton";
 import FileList from "./FileList";
 

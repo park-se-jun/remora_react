@@ -25,7 +25,7 @@ export default function FileSelectStep() {
         sendingFiles(
             fileList,
             result => {
-                resultDispatch(setResult(result.data));
+                resultDispatch(setResult(result));
             },
             err => {
                 resultDispatch(setError(err));

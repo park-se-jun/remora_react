@@ -7,8 +7,11 @@ const baseURL = (() => {
     return "http://20.124.204.171:8080";
 })();
 
-const defaultClient = axios.create({
+export const formDataClient = axios.create({
     baseURL,
     headers: { "Content-Type": "multipart/form-data" },
 });
-export default defaultClient;
+export const jsonDataClient = axios.create({
+    baseURL,
+    headers: { "Content-Type": `application/json` },
+});

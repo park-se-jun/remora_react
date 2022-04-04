@@ -7,15 +7,15 @@ export interface MyFile extends File {
     id: string;
     translation: boolean;
 }
-export type MyResult = {
-    success: boolean;
-    message: string;
-    code: number;
-    originResultText: Array<string>;
-    translatedResultText: Array<string>;
-    keywords: Array<string>;
-    needTranslation: boolean;
-};
+// export type MyResult = {
+//     success: boolean;
+//     message: string;
+//     code: number;
+//     originResultText: Array<string>;
+//     translatedResultText: Array<string>;
+//     keywords: Array<string>;
+//     needTranslation: boolean;
+// };
 
 export type MyAction =
     | { type: "TRANSLATE_CHANGE"; file: MyFile }
@@ -28,4 +28,9 @@ export type MyDispatch = Dispatch<MyAction>;
 export type StoreState = {
     fileList: Array<MyFile>;
     step: number;
+};
+export type MyResult = {
+    keyword: string[] | null;
+    text: string[] | null;
+    videoCode: number;
 };

@@ -9,11 +9,8 @@ export default function SendingStep() {
     const { resultList, error } = useResultStoreState();
     if (resultList !== undefined) {
         navigate("success", { replace: true });
-        return <></>;
-    }
-    if (error !== undefined) {
+    } else if (error !== undefined) {
         navigate("error", { replace: true });
-        return <></>;
     }
     return (
         <>

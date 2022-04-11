@@ -1,4 +1,5 @@
 import { Dispatch } from "react";
+import { KeyworResponseDTO } from "./KeywordDTO";
 
 export interface BasicProps {
     children?: JSX.Element | JSX.Element[];
@@ -29,8 +30,7 @@ export type StoreState = {
     fileList: Array<MyFile>;
     step: number;
 };
-export type MyResult = {
-    keyword: string[] | null;
-    text: string[] | null;
-    videoCode: number;
-};
+export interface MyResult {
+    keywords: string[];
+    text: string;
+}

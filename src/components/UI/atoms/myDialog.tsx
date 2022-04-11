@@ -8,43 +8,25 @@ import {
     Typography,
 } from "@mui/material";
 import { MyResult } from "interfaces/MyTypes";
-import ClipboardCopyStringArray from "modules/ClipboardCopyStringArray";
+import {
+    ClipboardCopyStringArray,
+    ClipboardCopyString,
+} from "modules/ClipboardCopy";
 // import PropTypes from "prop-types";
 
 interface MyDialogProps extends DialogProps {
     value: MyResult;
 }
 function MyDialog({ value: result, onClose, open }: MyDialogProps) {
-    const isTranslated = result.needTranslation;
-    const contents = isTranslated
-        ? result.translatedResultText
-        : result.originResultText;
     return (
         <Dialog sx={{ p: "2rem" }} onClose={onClose} open={open} maxWidth="sm">
             <DialogTitle>
                 <Typography sx={{ fontSize: 8 }} color="text.secondary">
                     키워드 입니다.
                 </Typography>
-                {result.keywords.map((keyword, i, keywords) => {
-                    if (i === keywords.length - 1) {
-                        return keyword;
-                    }
-                    return keyword.concat(", ");
-                })}
+                {result.keywords.join(" ")}
             </DialogTitle>
-            <DialogContent>
-                <Typography sx={{ fontSize: 12 }} color="text.secondary">
-                    {isTranslated ? (
-                        <>번역된 영상의 전문입니다. </>
-                    ) : (
-                        <>번역되지 않은 영상 입니다.</>
-                    )}
-                </Typography>
-
-                {contents.map(content => {
-                    return <Typography variant="body1">{content}</Typography>;
-                })}
-            </DialogContent>
+            <DialogContent>{result.text}</DialogContent>
             <DialogActions>
                 <Button
                     onClick={() => {
@@ -55,7 +37,7 @@ function MyDialog({ value: result, onClose, open }: MyDialogProps) {
                 </Button>
                 <Button
                     onClick={() => {
-                        ClipboardCopyStringArray(contents, "\r\n ");
+                        ClipboardCopyString(result.text);
                     }}
                 >
                     내용을 클립보드로 복사

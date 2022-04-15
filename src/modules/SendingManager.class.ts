@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance } from "axios";
 import { FrameRequestDTO, FrameResponseDTO } from "interfaces/FrameDTO";
 import { KeywordRequestDTO, KeyworResponseDTO } from "interfaces/KeywordDTO";
 import MyResultList from "interfaces/MyResultList";
@@ -12,96 +12,7 @@ import { UploadResponseDTO } from "interfaces/UploadDTO";
 import { formDataClient, jsonDataClient } from "./DefaultClient";
 import MakeFormData from "./MakeFormData";
 
-export default async function sendingFiles(
-    files: Array<MyFile>,
-    successCallback?:
-        | ((value: KeyworResponseDTO) => void | PromiseLike<void>)
-        | null
-        | undefined,
-    failCallback?:
-        | ((reason: any) => void | PromiseLike<void>)
-        | null
-        | undefined,
-) {
-    const formData = MakeFormData(files);
-    try {
-        /* upload콜의  Response를 담는 변수 */
-        const needTranslationArray: boolean[] = [];
-        const videoCode: string[] = [];
-        /* frame콜의 Response를 담는 변수 */
-        const frameRequest: FrameRequestDTO = { videoCode: [] };
-        let frameSet: number[][] = [];
-        /* text콜의 Response를 담는 변수 */
-        let textArray: string[] = [];
-        /* text/translate콜의 Response를 담는 변수 */
-        let translatedTextArray: string[] | null = [];
-        /* upload 콜  */
-        const uploadResponse = await formDataClient.post("/upload", formData);
-        const uploadResponseDataArray: UploadResponseDTO[] =
-            uploadResponse.data;
-        uploadResponseDataArray.forEach(uploadResponseData => {
-            needTranslationArray.push(uploadResponseData.needTranslation);
-            videoCode.push(uploadResponseData.videoCode);
-        });
-        frameRequest.videoCode = videoCode;
-        /* frames 콜 */
-        const frameResponse = await jsonDataClient.post(
-            "/frames",
-            JSON.stringify(frameRequest),
-        );
-        const frameResponseData: FrameResponseDTO = frameResponse.data;
-        frameSet = frameResponseData.frameSet;
-        const textRequest: TextRequestDTO = {
-            frameSet,
-            videoCode,
-        };
-        /* text 콜 */
-        const textResponse = await jsonDataClient.post(
-            "/text",
-            JSON.stringify(textRequest),
-        );
-        const textResponseData: TextResponseDTO = textResponse.data;
-        textArray = textResponseData.text;
-        const translationRequest: TranslationRequestDTO = {
-            text: textArray,
-            needTranslation: needTranslationArray,
-        };
-        /* text/translate콜 */
-        const translationResponse = await jsonDataClient.post(
-            "/text/translated",
-            JSON.stringify(translationRequest),
-        );
-        const translationResponseData: TranslationResponseDTO =
-            translationResponse.data;
-        translatedTextArray = translationResponseData.translatedText;
-        if (translatedTextArray === null) {
-            throw new Error("translatedTextArray is null");
-        }
-        const keywordRequest: KeywordRequestDTO = {
-            translatedText: translatedTextArray,
-        };
-        /* keywords콜 */
-        const keywordsResponse = await jsonDataClient.post(
-            "/keywords",
-            JSON.stringify(keywordRequest),
-        );
-        const keywordsResponseData: KeyworResponseDTO = keywordsResponse.data;
-        if (typeof successCallback === "function") {
-            successCallback(keywordsResponseData);
-        }
-        // .then(result => {
-        //     console.log(result);
-        //     console.log(result.data);
-        //     if (typeof successCallback === "function") {
-        //         successCallback(result);
-        //     }
-        // });
-    } catch (err) {
-        console.log(err);
-        if (typeof failCallback === "function") failCallback(err);
-    }
-}
-export class SendingManager {
+export default class SendingManager {
     private myResultList: MyResultList | null;
 
     private formData: FormData;
@@ -146,13 +57,6 @@ export class SendingManager {
         };
     }
 
-    private static nullCheck(member: unknown) {
-        if (member) {
-            return null;
-        }
-        throw new Error("null data in API Calls");
-    }
-
     private setNeedTranslationArray(uploadResponseArray: UploadResponseDTO[]) {
         uploadResponseArray.forEach(uploadResponse => {
             this.needTranslationArray.push(uploadResponse.needTranslation);
@@ -171,7 +75,7 @@ export class SendingManager {
         this.progressCallback = myCallback;
     }
 
-    async sendingDataAPI(formData: FormData) {
+    public async sendingDataAPI(formData: FormData) {
         await this.uploadAPI(formData);
         this.progressCallback(20);
         await this.frameAPI(this.frameRequestDTO);
@@ -185,7 +89,7 @@ export class SendingManager {
         await this.makeMyResultList(this.keywordResponseDTO);
     }
 
-    async uploadAPI(formData: FormData) {
+    protected async uploadAPI(formData: FormData) {
         const response = await this.formDataAxiosInstance.post(
             "/upload",
             formData,
@@ -199,7 +103,7 @@ export class SendingManager {
         return this.frameRequestDTO;
     }
 
-    async frameAPI(frameRequest: FrameRequestDTO) {
+    protected async frameAPI(frameRequest: FrameRequestDTO) {
         const response = await this.jsonDataAxiosInstance.post(
             "/frames",
             JSON.stringify(frameRequest),
@@ -212,7 +116,7 @@ export class SendingManager {
         return this.textRequestDTO;
     }
 
-    async textAPI(textRequest: TextRequestDTO) {
+    protected async textAPI(textRequest: TextRequestDTO) {
         const response = await this.jsonDataAxiosInstance.post(
             "/text",
             JSON.stringify(textRequest),
@@ -225,7 +129,7 @@ export class SendingManager {
         return this.translationRequestDTO;
     }
 
-    async translationAPI(translationRequest: TranslationRequestDTO) {
+    protected async translationAPI(translationRequest: TranslationRequestDTO) {
         const response = await this.jsonDataAxiosInstance.post(
             "/text/translated",
             JSON.stringify(translationRequest),
@@ -237,7 +141,7 @@ export class SendingManager {
         return this.keywordRequestDTO;
     }
 
-    async keywordAPI(keywordRequest: KeywordRequestDTO) {
+    protected async keywordAPI(keywordRequest: KeywordRequestDTO) {
         const response = await this.jsonDataAxiosInstance.post(
             "/keywords",
             JSON.stringify(keywordRequest),

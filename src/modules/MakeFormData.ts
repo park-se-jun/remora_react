@@ -1,4 +1,5 @@
 import { MyFile } from "interfaces/MyTypes";
+import FormData from "form-data";
 
 const MakeFormData = (Files: MyFile[]) => {
     const formData = new FormData();

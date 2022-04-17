@@ -18,21 +18,21 @@ export default class MyResultList {
         }
     }
 
-    getLength() {
+    public getLength() {
         return this.resultList.length;
     }
 
-    getKeywordsOf(index: number): string {
+    public getKeywordsOf(index: number): string {
         const { keywords } = this.resultList[index];
         return keywords.join(", ");
     }
 
-    getTextOf(index: number): string {
+    public getTextOf(index: number): string {
         const { text } = this.resultList[index];
         return text;
     }
 
-    getContentOf(index: number): string {
+    public getContentOf(index: number): string {
         return `keywords : ${this.getKeywordsOf(index)}
         
             text: ${this.getTextOf(index)}`;

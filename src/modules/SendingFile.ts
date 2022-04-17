@@ -171,24 +171,24 @@ export class SendingManager {
         this.progressCallback = myCallback;
     }
 
-    async sendingDataAPI(formData: FormData) {
-        await this.uploadAPI(formData);
+    public async sendingDataAPI(formData: FormData) {
+        await this.uploadAPI();
         this.progressCallback(20);
-        await this.frameAPI(this.frameRequestDTO);
+        await this.frameAPI();
         this.progressCallback(40);
-        await this.textAPI(this.textRequestDTO);
+        await this.textAPI();
         this.progressCallback(60);
-        await this.translationAPI(this.translationRequestDTO);
+        await this.translationAPI();
         this.progressCallback(80);
-        await this.keywordAPI(this.keywordRequestDTO);
+        await this.keywordAPI();
         this.progressCallback(100);
-        await this.makeMyResultList(this.keywordResponseDTO);
+        return this.makeMyResultList(this.keywordResponseDTO);
     }
 
-    async uploadAPI(formData: FormData) {
+    async uploadAPI() {
         const response = await this.formDataAxiosInstance.post(
             "/upload",
-            formData,
+            this.formData,
         );
         this.uploadResponseArray = response.data;
         this.setNeedTranslationArray(this.uploadResponseArray);
@@ -199,10 +199,10 @@ export class SendingManager {
         return this.frameRequestDTO;
     }
 
-    async frameAPI(frameRequest: FrameRequestDTO) {
+    async frameAPI() {
         const response = await this.jsonDataAxiosInstance.post(
             "/frames",
-            JSON.stringify(frameRequest),
+            JSON.stringify(this.frameRequestDTO),
         );
         this.frameResponseDTO = response.data;
         this.textRequestDTO = {
@@ -212,10 +212,10 @@ export class SendingManager {
         return this.textRequestDTO;
     }
 
-    async textAPI(textRequest: TextRequestDTO) {
+    async textAPI() {
         const response = await this.jsonDataAxiosInstance.post(
             "/text",
-            JSON.stringify(textRequest),
+            JSON.stringify(this.textRequestDTO),
         );
         this.textResponseDTO = response.data;
         this.translationRequestDTO = {
@@ -225,10 +225,10 @@ export class SendingManager {
         return this.translationRequestDTO;
     }
 
-    async translationAPI(translationRequest: TranslationRequestDTO) {
+    async translationAPI() {
         const response = await this.jsonDataAxiosInstance.post(
             "/text/translated",
-            JSON.stringify(translationRequest),
+            JSON.stringify(this.translationRequestDTO),
         );
         this.translationResponseDTO = response.data;
         this.keywordRequestDTO = {
@@ -237,10 +237,10 @@ export class SendingManager {
         return this.keywordRequestDTO;
     }
 
-    async keywordAPI(keywordRequest: KeywordRequestDTO) {
+    async keywordAPI() {
         const response = await this.jsonDataAxiosInstance.post(
             "/keywords",
-            JSON.stringify(keywordRequest),
+            JSON.stringify(this.keywordResponseDTO),
         );
         this.keywordResponseDTO = response.data;
         return this.keywordResponseDTO;
@@ -249,5 +249,36 @@ export class SendingManager {
     makeMyResultList(keywordResponse: KeyworResponseDTO): MyResultList {
         this.myResultList = new MyResultList(keywordResponse);
         return this.myResultList;
+    }
+
+    /** test 를 위한 method */
+
+    public testUploadAPI(input: FormData) {
+        this.formData = input;
+        return this.uploadAPI();
+    }
+
+    public testFrameAPI(input: FrameRequestDTO) {
+        this.frameRequestDTO = input;
+        return this.frameAPI();
+    }
+
+    public testTextAPI(input: TextRequestDTO) {
+        this.textRequestDTO = input;
+        return this.textAPI();
+    }
+
+    public testTranslationAPI(input: TranslationRequestDTO) {
+        this.translationRequestDTO = input;
+        return this.translationAPI();
+    }
+
+    public testKeywordAPI(input: KeywordRequestDTO) {
+        this.keywordRequestDTO = input;
+        return this.keywordAPI();
+    }
+
+    public testMakeMyResultList(input: KeyworResponseDTO) {
+        this.makeMyResultList(input);
     }
 }

@@ -1,4 +1,5 @@
 import { AxiosInstance } from "axios";
+import FormData from "form-data";
 import { FrameRequestDTO, FrameResponseDTO } from "interfaces/FrameDTO";
 import { KeywordRequestDTO, KeyworResponseDTO } from "interfaces/KeywordDTO";
 import MyResultList from "interfaces/MyResultList";
@@ -45,8 +46,8 @@ export default class SendingManager {
 
     private progressCallback: (value: number) => void;
 
-    constructor(files: MyFile[]) {
-        this.formData = MakeFormData(files);
+    constructor(formData: FormData) {
+        this.formData = formData;
         this.formDataAxiosInstance = formDataClient;
         this.jsonDataAxiosInstance = jsonDataClient;
         this.needTranslationArray = [];
@@ -58,6 +59,7 @@ export default class SendingManager {
     }
 
     private setNeedTranslationArray(uploadResponseArray: UploadResponseDTO[]) {
+        this.needTranslationArray = [];
         uploadResponseArray.forEach(uploadResponse => {
             this.needTranslationArray.push(uploadResponse.needTranslation);
         });
@@ -65,6 +67,7 @@ export default class SendingManager {
     }
 
     private setVideoCodeArray(uploadResponseArray: UploadResponseDTO[]) {
+        this.videoCodeArray = [];
         uploadResponseArray.forEach(uploadResponse => {
             this.videoCodeArray.push(uploadResponse.videoCode);
         });
@@ -75,24 +78,25 @@ export default class SendingManager {
         this.progressCallback = myCallback;
     }
 
-    public async sendingDataAPI(formData: FormData) {
-        await this.uploadAPI(formData);
+    public async sendingDataAPI() {
+        await this.uploadAPI();
         this.progressCallback(20);
-        await this.frameAPI(this.frameRequestDTO);
+        await this.frameAPI();
         this.progressCallback(40);
-        await this.textAPI(this.textRequestDTO);
+        await this.textAPI();
         this.progressCallback(60);
-        await this.translationAPI(this.translationRequestDTO);
+        await this.translationAPI();
         this.progressCallback(80);
-        await this.keywordAPI(this.keywordRequestDTO);
+        await this.keywordAPI();
         this.progressCallback(100);
         await this.makeMyResultList(this.keywordResponseDTO);
     }
 
-    protected async uploadAPI(formData: FormData) {
+    private async uploadAPI() {
         const response = await this.formDataAxiosInstance.post(
             "/upload",
-            formData,
+            this.formData,
+            { headers: this.formData.getHeaders() },
         );
         this.uploadResponseArray = response.data;
         this.setNeedTranslationArray(this.uploadResponseArray);
@@ -103,12 +107,13 @@ export default class SendingManager {
         return this.frameRequestDTO;
     }
 
-    protected async frameAPI(frameRequest: FrameRequestDTO) {
+    private async frameAPI() {
         const response = await this.jsonDataAxiosInstance.post(
             "/frames",
-            JSON.stringify(frameRequest),
+            JSON.stringify(this.frameRequestDTO),
         );
         this.frameResponseDTO = response.data;
+
         this.textRequestDTO = {
             frameSet: this.frameResponseDTO.frameSet,
             videoCode: this.frameResponseDTO.videoCode,
@@ -116,10 +121,10 @@ export default class SendingManager {
         return this.textRequestDTO;
     }
 
-    protected async textAPI(textRequest: TextRequestDTO) {
+    private async textAPI() {
         const response = await this.jsonDataAxiosInstance.post(
             "/text",
-            JSON.stringify(textRequest),
+            JSON.stringify(this.textRequestDTO),
         );
         this.textResponseDTO = response.data;
         this.translationRequestDTO = {
@@ -129,10 +134,10 @@ export default class SendingManager {
         return this.translationRequestDTO;
     }
 
-    protected async translationAPI(translationRequest: TranslationRequestDTO) {
+    private async translationAPI() {
         const response = await this.jsonDataAxiosInstance.post(
             "/text/translated",
-            JSON.stringify(translationRequest),
+            JSON.stringify(this.translationRequestDTO),
         );
         this.translationResponseDTO = response.data;
         this.keywordRequestDTO = {
@@ -141,10 +146,10 @@ export default class SendingManager {
         return this.keywordRequestDTO;
     }
 
-    protected async keywordAPI(keywordRequest: KeywordRequestDTO) {
+    private async keywordAPI() {
         const response = await this.jsonDataAxiosInstance.post(
             "/keywords",
-            JSON.stringify(keywordRequest),
+            JSON.stringify(this.keywordRequestDTO),
         );
         this.keywordResponseDTO = response.data;
         return this.keywordResponseDTO;
@@ -153,5 +158,46 @@ export default class SendingManager {
     makeMyResultList(keywordResponse: KeyworResponseDTO): MyResultList {
         this.myResultList = new MyResultList(keywordResponse);
         return this.myResultList;
+    }
+
+    /** test 를 위한 method */
+
+    public testUploadAPI(input: FormData) {
+        this.formData = input;
+        return this.uploadAPI();
+    }
+
+    public testFrameAPI(input: FrameRequestDTO) {
+        this.frameRequestDTO = input;
+        return this.frameAPI();
+    }
+
+    public testTextAPI(input: TextRequestDTO) {
+        if (input.videoCode === null) {
+            this.needTranslationArray = [];
+        } else {
+            // eslint-disable-next-line no-plusplus
+            for (let i = 0; i < input.videoCode?.length; i++) {
+                this.needTranslationArray.push(true);
+            }
+        }
+
+        this.textRequestDTO = input;
+
+        return this.textAPI();
+    }
+
+    public testTranslationAPI(input: TranslationRequestDTO) {
+        this.translationRequestDTO = input;
+        return this.translationAPI();
+    }
+
+    public testKeywordAPI(input: KeywordRequestDTO) {
+        this.keywordRequestDTO = input;
+        return this.keywordAPI();
+    }
+
+    public testMakeMyResultList(input: KeyworResponseDTO) {
+        return this.makeMyResultList(input);
     }
 }

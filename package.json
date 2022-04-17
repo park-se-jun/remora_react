@@ -21,6 +21,7 @@
         "@typescript-eslint/parser": "5.13.0",
         "axios": "0.24.0",
         "file-saver": "2.0.5",
+        "form-data": "4.0.0",
         "jszip": "3.7.1",
         "prop-types": "15.7.2",
         "react": "^17.0.2",
@@ -38,7 +39,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
-        "test": "react-scripts test",
+        "test": "react-scripts test --env=node",
         "eject": "react-scripts eject"
     },
     "browserslist": {
@@ -86,10 +87,5 @@
                 "prettier --write"
             ]
         }
-    ],
-    "jest": {
-        "modulePaths": [
-            "<rootDir>"
-        ]
-    }
+    ]
 }

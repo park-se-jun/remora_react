@@ -1,4 +1,4 @@
 export default interface ResponseBase {
-    sucess: boolean;
+    success: boolean;
     message: string;
 }

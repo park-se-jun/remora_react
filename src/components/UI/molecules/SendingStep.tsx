@@ -2,6 +2,7 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 // import MyProgress from "../atoms/MyProgress";
 import { useNavigate } from "react-router";
 import { useResultStoreState } from "store/ResultSotre";
+import MyProgress from "../atoms/MyProgress";
 
 export default function SendingStep() {
     const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function SendingStep() {
             <Typography align="center" variant="h6">
                 파일을 전송중 입니다...
             </Typography>
+            {/* <MyProgress> */}
         </>
     );
 }

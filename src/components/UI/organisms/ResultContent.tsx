@@ -3,23 +3,19 @@
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { setCurrContent, setIsDialogOpen } from "store/ActionCreator";
-import {
-    defaultResult,
-    useResultDispatch,
-    useResultStoreState,
-} from "store/ResultSotre";
+import { useResultDispatch, useResultStoreState } from "store/ResultSotre";
 import BasicButton from "../atoms/BasicButton";
 import MyDialog from "../atoms/myDialog";
 import LinkToExtractButton from "../molecules/LinkToExtractButton";
 import ResultList from "../molecules/ResultList";
 
 function ResultContent() {
-    const { resultList, isDialogOpen, currContent } = useResultStoreState();
+    const { resultList, isDialogOpen } = useResultStoreState();
     const resultDispatch = useResultDispatch();
 
     const handleClose = () => {
         // setDialogContent(null);
-        resultDispatch(setCurrContent(defaultResult));
+        resultDispatch(setCurrContent(null));
         resultDispatch(setIsDialogOpen(false));
     };
     return (
@@ -36,14 +32,14 @@ function ResultContent() {
         >
             {resultList ? (
                 <>
-                    <ResultList value={resultList} />
+                    <ResultList resultList={resultList} />
                     <BasicButton to="/front" component={Link}>
                         front page
                     </BasicButton>
                     <MyDialog
+                        resultList={resultList}
                         open={isDialogOpen}
                         onClose={handleClose}
-                        value={currContent}
                     />
                 </>
             ) : (

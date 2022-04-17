@@ -1,3 +1,4 @@
+import MyResultList from "interfaces/MyResultList";
 import { MyAction, MyFile, MyResult } from "interfaces/MyTypes";
 import {
     ADD_FILE,
@@ -29,10 +30,10 @@ export const clearState = (): ResultAction => {
 export const setError = (error: any): ResultAction => {
     return { type: SET_ERROR, error };
 };
-export const setResult = (resultList: Array<MyResult>): ResultAction => {
+export const setResult = (resultList: MyResultList): ResultAction => {
     return { type: SET_RESULT, resultList };
 };
-export const setCurrContent = (currResult: MyResult): ResultAction => {
+export const setCurrContent = (currResult: number | null): ResultAction => {
     return { type: SET_CURR_CONTENT, currResult };
 };
 export const setIsDialogOpen = (isDialogOpen: boolean): ResultAction => {

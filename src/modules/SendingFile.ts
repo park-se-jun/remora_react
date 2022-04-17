@@ -8,6 +8,8 @@ import {
     TranslationRequestDTO,
     TranslationResponseDTO,
 } from "interfaces/TranslationDTO";
+/* 테서트를 위한 임포트 */
+// import FormData from "form-data";
 import { UploadResponseDTO } from "interfaces/UploadDTO";
 import { formDataClient, jsonDataClient } from "./DefaultClient";
 import MakeFormData from "./MakeFormData";

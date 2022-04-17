@@ -1,5 +1,5 @@
 import { FrameRequestDTO } from "interfaces/FrameDTO";
-import { MyFile } from "interfaces/MyTypes";
+// import { MyFile } from "interfaces/MyTypes";
 import MakeFormData from "modules/MakeFormData";
 import SendingManager from "modules/SendingManager.class";
 import fs from "fs";
@@ -291,26 +291,22 @@ describe("makeMyResultList 테스트", () => {
                 ["test classification 3"],
             ],
         });
-    describe("makeMyResultList 테스트: 정상 keywordResponse", () => {
-        test("getKeywordsOf 테스트", () => {
-            expect(testResutList.getLength()).toEqual(3);
-            expect(testResutList.getKeywordsOf(0)).toEqual(
-                "test classification 1, 123",
-            );
-            expect(testResutList.getKeywordsOf(1)).toEqual(
-                "test classification 2",
-            );
-            expect(testResutList.getKeywordsOf(2)).toEqual(
-                "test classification 3",
-            );
-        });
-        test("getTextOf 테스트", () => {
-            expect(testResutList.getTextOf(0)).toEqual("hello");
-            expect(testResutList.getTextOf(1)).toEqual("안녕하세요");
-            expect(testResutList.getTextOf(2));
-            expect(testResutList.getTextOf(3)).toThrowError("out");
-        });
+    // describe("makeMyResultList 테스트: 정상 keywordResponse", () => {
+    test("getKeywordsOf 테스트", () => {
+        expect(testResutList.getLength()).toEqual(3);
+        expect(testResutList.getKeywordsOf(0)).toEqual(
+            "test classification 1, 123",
+        );
+        expect(testResutList.getKeywordsOf(1)).toEqual("test classification 2");
+        expect(testResutList.getKeywordsOf(2)).toEqual("test classification 3");
     });
+    test("getTextOf 테스트", () => {
+        expect(testResutList.getTextOf(0)).toEqual("hello");
+        expect(testResutList.getTextOf(1)).toEqual("안녕하세요");
+        expect(testResutList.getTextOf(2));
+        expect(testResutList.getTextOf(3)).toThrowError("out");
+    });
+    // });
     test("makeMyResultList 테스트: 잘못된 keywordResponse");
 });
 describe("E2E 테스트", () => {

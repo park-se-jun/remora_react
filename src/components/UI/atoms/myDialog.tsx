@@ -7,44 +7,59 @@ import {
     DialogTitle,
     Typography,
 } from "@mui/material";
-import { MyResult } from "interfaces/MyTypes";
-import {
-    ClipboardCopyStringArray,
-    ClipboardCopyString,
-} from "modules/ClipboardCopy";
+import MyResultList from "interfaces/MyResultList";
+import { ClipboardCopyString } from "modules/ClipboardCopy";
+import { useResultStoreState } from "store/ResultSotre";
 // import PropTypes from "prop-types";
-
 interface MyDialogProps extends DialogProps {
-    value: MyResult;
+    resultList: MyResultList;
 }
-function MyDialog({ value: result, onClose, open }: MyDialogProps) {
+function MyDialog({ resultList, onClose, open }: MyDialogProps) {
+    const { currContent } = useResultStoreState();
     return (
-        <Dialog sx={{ p: "2rem" }} onClose={onClose} open={open} maxWidth="sm">
-            <DialogTitle>
-                <Typography sx={{ fontSize: 8 }} color="text.secondary">
-                    키워드 입니다.
-                </Typography>
-                {result.keywords.join(" ")}
-            </DialogTitle>
-            <DialogContent>{result.text}</DialogContent>
-            <DialogActions>
-                <Button
-                    onClick={() => {
-                        ClipboardCopyStringArray(result.keywords, ", ");
-                    }}
+        <>
+            {currContent === null ? (
+                <></>
+            ) : (
+                <Dialog
+                    sx={{ p: "2rem" }}
+                    onClose={onClose}
+                    open={open}
+                    maxWidth="sm"
                 >
-                    키워드를 클립보드로 복사
-                </Button>
-                <Button
-                    onClick={() => {
-                        ClipboardCopyString(result.text);
-                    }}
-                >
-                    내용을 클립보드로 복사
-                </Button>
-                <Button>파일로 다운</Button>
-            </DialogActions>
-        </Dialog>
+                    <DialogTitle>
+                        <Typography sx={{ fontSize: 8 }} color="text.secondary">
+                            키워드 입니다.
+                        </Typography>
+                        {resultList.getKeywordsOf(currContent)}
+                    </DialogTitle>
+                    <DialogContent>
+                        {resultList.getTextOf(currContent)}
+                    </DialogContent>
+                    <DialogActions>
+                        <Button
+                            onClick={() => {
+                                ClipboardCopyString(
+                                    resultList.getKeywordsOf(currContent),
+                                );
+                            }}
+                        >
+                            키워드를 클립보드로 복사
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                ClipboardCopyString(
+                                    resultList.getTextOf(currContent),
+                                );
+                            }}
+                        >
+                            내용을 클립보드로 복사
+                        </Button>
+                        <Button>파일로 다운</Button>
+                    </DialogActions>
+                </Dialog>
+            )}
+        </>
     );
 }
 export default MyDialog;

@@ -1,3 +1,4 @@
+import MyResultList from "interfaces/MyResultList";
 import { BasicProps, MyResult } from "interfaces/MyTypes";
 import { createContext, Dispatch, useContext, useReducer } from "react";
 import {
@@ -9,30 +10,21 @@ import {
 } from "./ActionType";
 
 type ResultState = {
-    resultList: Array<MyResult> | null | undefined;
+    resultList: MyResultList | null | undefined;
     error: any;
-    currContent: MyResult;
+    currContent: number | null;
     isDialogOpen: boolean;
 };
 export type ResultAction =
-    | { type: "SET_RESULT"; resultList: Array<MyResult> }
+    | { type: "SET_RESULT"; resultList: MyResultList }
     | { type: "SET_ERROR"; error: any }
     | { type: "CLEAR_STATE" }
-    | { type: "SET_CURR_CONTENT"; currResult: MyResult }
+    | { type: "SET_CURR_CONTENT"; currResult: number | null }
     | { type: "SET_DIALOG_OPEN"; isDialogOpen: boolean };
-export const defaultResult: MyResult = {
-    success: true,
-    message: "default",
-    code: 0,
-    originResultText: ["default"],
-    translatedResultText: ["default"],
-    keywords: ["default"],
-    needTranslation: true,
-};
 const initialResultState: ResultState = {
     resultList: undefined,
     error: undefined,
-    currContent: defaultResult,
+    currContent: null,
     isDialogOpen: false,
 };
 function reducer(state: ResultState, action: ResultAction): ResultState {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { useResultDispatch, useResultStoreState } from "store/ResultSotre";
-import mock1 from "data/mockData";
+// import mock1 from "data/mockData";
 import { setResult } from "store/ActionCreator";
 import LinkToExtractButton from "../molecules/LinkToExtractButton";
 
@@ -10,13 +10,6 @@ function FrontContent() {
     const [isTesting, setIsTesting] = useState<boolean>(false);
     const resultStoreState = useResultStoreState();
     const resultDispatch = useResultDispatch();
-    useEffect(() => {
-        if (isTesting) {
-            resultDispatch(setResult(mock1));
-            console.log(resultStoreState);
-        }
-    }, [isTesting]);
-
     return (
         <Box
             sx={{

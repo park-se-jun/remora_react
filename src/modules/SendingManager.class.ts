@@ -1,5 +1,6 @@
 import { AxiosInstance } from "axios";
-import FormData from "form-data";
+/* 테서트를 위한 임포트 */
+// import FormData from "form-data";
 import { FrameRequestDTO, FrameResponseDTO } from "interfaces/FrameDTO";
 import { KeywordRequestDTO, KeyworResponseDTO } from "interfaces/KeywordDTO";
 import MyResultList from "interfaces/MyResultList";
@@ -89,14 +90,15 @@ export default class SendingManager {
         this.progressCallback(80);
         await this.keywordAPI();
         this.progressCallback(100);
-        await this.makeMyResultList(this.keywordResponseDTO);
+        const value = await this.makeMyResultList(this.keywordResponseDTO);
+        return value;
     }
 
     private async uploadAPI() {
         const response = await this.formDataAxiosInstance.post(
             "/upload",
             this.formData,
-            { headers: this.formData.getHeaders() },
+            // { headers: this.formData.getHeaders() }, // node 환경에서 테스트 할 경우에만 사용
         );
         this.uploadResponseArray = response.data;
         this.setNeedTranslationArray(this.uploadResponseArray);

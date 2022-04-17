@@ -1,20 +1,19 @@
 import { Box } from "@mui/material";
+import MyResultList from "interfaces/MyResultList";
 import { MyResult } from "interfaces/MyTypes";
-import PropTypes from "prop-types";
 import { setCurrContent, setIsDialogOpen } from "store/ActionCreator";
-import { useResultDispatch, useResultStoreState } from "store/ResultSotre";
+import { useResultDispatch } from "store/ResultSotre";
 import ResultInfo from "../atoms/ResultInfo";
 
 type ResultListProps = {
-    value: Array<MyResult>;
+    resultList: MyResultList;
 };
-function ResultList({ value: resultList }: ResultListProps) {
-    const { resultList: list } = useResultStoreState();
-    console.log(list);
+function ResultList({ resultList }: ResultListProps) {
+    console.log(resultList);
     const resultDispatch = useResultDispatch();
-    function itemClickCallback(currResult: MyResult) {
+    function itemClickCallback(itemIndex: number) {
         resultDispatch(setIsDialogOpen(true));
-        resultDispatch(setCurrContent(currResult));
+        resultDispatch(setCurrContent(itemIndex));
     }
     return (
         <Box
@@ -27,13 +26,12 @@ function ResultList({ value: resultList }: ResultListProps) {
                 width: "100vh",
             }}
         >
-            {resultList.map((result, i) => {
+            {resultList.getResultList().map((result, index) => {
                 return (
                     <ResultInfo
-                        result={result}
-                        index={i}
+                        index={index}
                         onClick={() => {
-                            itemClickCallback(result);
+                            itemClickCallback(index);
                         }}
                     />
                 );
@@ -42,19 +40,3 @@ function ResultList({ value: resultList }: ResultListProps) {
     );
 }
 export default ResultList;
-ResultList.propTypes = {
-    value: PropTypes.arrayOf(
-        PropTypes.shape({
-            success: PropTypes.bool,
-            message: PropTypes.string,
-            code: PropTypes.number,
-            originResultText: PropTypes.arrayOf(PropTypes.string),
-            translatedResultText: PropTypes.arrayOf(PropTypes.string),
-            keyword: PropTypes.arrayOf(PropTypes.string),
-            needTranslation: PropTypes.bool,
-        }),
-    ),
-};
-ResultList.defaultProps = {
-    value: null,
-};

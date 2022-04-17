@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { useDispatch, useStoreState } from "store/Store";
-import sendingFiles from "modules/SendingFile";
+// import sendingFiles from "modules/SendingFile";
 import { useResultDispatch } from "store/ResultSotre";
 import { setError, setResult, setStep } from "store/ActionCreator";
+import SendingManager from "modules/SendingManager.class";
+import MakeFormData from "modules/MakeFormData";
 import DropBox from "./DropBox";
 import BasicButton from "../atoms/BasicButton";
 import SendingStep from "./SendingStep";
@@ -22,15 +24,17 @@ export default function FileSelectStep() {
         console.log("파일전송시작");
         setStartUpload(true);
         dispatch(setStep(1));
-        sendingFiles(
-            fileList,
-            result => {
+        const sendingManager = new SendingManager(MakeFormData(fileList));
+        // sendingManager.setProgressCallback(value => {});
+        sendingManager
+            .sendingDataAPI()
+            .then(result => {
                 resultDispatch(setResult(result));
-            },
-            err => {
+            })
+            .catch(err => {
                 resultDispatch(setError(err));
-            },
-        );
+                console.log(err);
+            });
     };
     if (startUpload) {
         return <SendingStep />;

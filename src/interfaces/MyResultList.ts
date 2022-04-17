@@ -18,6 +18,10 @@ export default class MyResultList {
         }
     }
 
+    public getResultList() {
+        return this.resultList;
+    }
+
     public getLength() {
         return this.resultList.length;
     }

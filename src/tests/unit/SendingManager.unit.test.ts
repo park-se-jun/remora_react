@@ -3,7 +3,7 @@ import { FrameRequestDTO } from "interfaces/FrameDTO";
 import MakeFormData from "modules/MakeFormData";
 import SendingManager from "modules/SendingManager.class";
 import fs from "fs";
-import FormData from "form-data";
+// import FormData from "form-data"; // [테스트] 할때만 포함
 import MyResultList from "interfaces/MyResultList";
 import { Result } from "components/pages";
 
@@ -13,8 +13,8 @@ const text = "text API 테스트";
 const translate = "translation API 테스트";
 const keyword = "keywords API 테스트";
 // 테스트 진입시 시작 videoCode
-const videoCode = 44;
-describe.skip("upload API 테스트", () => {
+const videoCode = 26 + 5;
+describe("upload API 테스트", () => {
     const myTestSendingManager = new SendingManager(MakeFormData([]));
     /** upload 테스트 */
     test(`${upload}:동영상1개 전송`, async () => {
@@ -89,7 +89,7 @@ describe.skip("upload API 테스트", () => {
         });
     }, 99999);
 });
-describe.skip(`frame API 테스트`, () => {
+describe(`frame API 테스트`, () => {
     const myTestSendingManager = new SendingManager(MakeFormData([]));
     /**  frame테스트 */
     test(`${frame}:videoCode 배열 1개 전송`, async () => {
@@ -99,9 +99,9 @@ describe.skip(`frame API 테스트`, () => {
         expect(result).toEqual({
             frameSet: [
                 [
-                    0, 300, 150, 600, 450, 750, 900, 1050, 1200, 1500, 1350,
-                    1800, 1650, 2100, 2400, 1950, 2250, 2700, 2550, 3000, 2850,
-                    3300, 3150, 3600, 3450, 3750,
+                    0, 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500,
+                    1650, 1800, 1950, 2100, 2250, 2400, 2550, 2700, 2850, 3000,
+                    3150, 3300, 3450, 3600, 3750,
                 ],
             ],
             videoCode: ["1"],
@@ -114,14 +114,14 @@ describe.skip(`frame API 테스트`, () => {
         expect(result).toEqual({
             frameSet: [
                 [
-                    0, 300, 150, 600, 450, 750, 900, 1200, 1050, 1500, 1350,
-                    1800, 1650, 2100, 2400, 1950, 2250, 2700, 2550, 3000, 2850,
-                    3300, 3150, 3600, 3450, 3750,
+                    0, 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500,
+                    1650, 1800, 1950, 2100, 2250, 2400, 2550, 2700, 2850, 3000,
+                    3150, 3300, 3450, 3600, 3750,
                 ],
                 [
-                    0, 300, 150, 600, 450, 900, 750, 1200, 1050, 1500, 1350,
-                    1800, 1650, 2100, 2400, 1950, 2250, 2700, 2550, 3000, 2850,
-                    3300, 3150, 3600, 3900, 3450, 3750,
+                    0, 150, 300, 450, 600, 750, 900, 1050, 1200, 1350, 1500,
+                    1650, 1800, 1950, 2100, 2250, 2400, 2550, 2700, 2850, 3000,
+                    3150, 3300, 3450, 3600, 3750, 3900,
                 ],
             ],
             videoCode: ["1", "2"],
@@ -158,14 +158,15 @@ describe(`text API 테스트`, () => {
     });
 
     test(`${text}:null,null 전달 -> error 반환`, async () => {
-        const result = await myTestSendingManager.testTextAPI({
-            frameSet: null,
-            videoCode: null,
-        });
+        expect(async () => {
+            const result = await myTestSendingManager.testTextAPI({
+                frameSet: null,
+                videoCode: null,
+            });
+        }).rejects.toThrowError("400");
     });
-    expect(Result).toThrowError("400");
 });
-describe.skip(`translation API 테스트`, () => {
+describe(`translation API 테스트`, () => {
     const myTestSendingManager = new SendingManager(MakeFormData([]));
     // /** translate 테스트 */
     test(`${translate}:영어,영어 전달 => 번역O,번역X [expect] : 한글 영어`, async () => {
@@ -291,25 +292,47 @@ describe("makeMyResultList 테스트", () => {
                 ["test classification 3"],
             ],
         });
-    // describe("makeMyResultList 테스트: 정상 keywordResponse", () => {
-    test("getKeywordsOf 테스트", () => {
-        expect(testResutList.getLength()).toEqual(3);
-        expect(testResutList.getKeywordsOf(0)).toEqual(
-            "test classification 1, 123",
-        );
-        expect(testResutList.getKeywordsOf(1)).toEqual("test classification 2");
-        expect(testResutList.getKeywordsOf(2)).toEqual("test classification 3");
+    describe("makeMyResultList 테스트: 정상 keywordResponse", () => {
+        test("getKeywordsOf 테스트", () => {
+            expect(testResutList.getLength()).toEqual(3);
+            expect(testResutList.getKeywordsOf(0)).toEqual(
+                "test classification 1, 123",
+            );
+            expect(testResutList.getKeywordsOf(1)).toEqual(
+                "test classification 2",
+            );
+            expect(testResutList.getKeywordsOf(2)).toEqual(
+                "test classification 3",
+            );
+        });
+        test("getTextOf 테스트", () => {
+            expect(testResutList.getTextOf(0)).toEqual("hello");
+            expect(testResutList.getTextOf(1)).toEqual("안녕하세요");
+            expect(testResutList.getTextOf(2));
+            expect(() => testResutList.getTextOf(3)).toThrowError(
+                "destructure",
+            );
+        });
     });
-    test("getTextOf 테스트", () => {
-        expect(testResutList.getTextOf(0)).toEqual("hello");
-        expect(testResutList.getTextOf(1)).toEqual("안녕하세요");
-        expect(testResutList.getTextOf(2));
-        expect(testResutList.getTextOf(3)).toThrowError("out");
-    });
-    // });
-    test("makeMyResultList 테스트: 잘못된 keywordResponse");
 });
 describe("E2E 테스트", () => {
     // /** E2E 테스트 */
-    // test("ALL API 테스트");
+    test("ALL API 테스트", async () => {
+        const data = new FormData();
+        data.append(
+            "originVideo",
+            fs.createReadStream("./exampleData/Remora_example_1_360.mp4"),
+        );
+        data.append("needTranslate", "true");
+        const myTestSendingManager = new SendingManager(data);
+        const result = await myTestSendingManager.testSendingAPI(3);
+        expect(result).toEqual(
+            new MyResultList({
+                success: true,
+                message: "success",
+                translatedText: ["시험 오크 결과"],
+                keywords: [["test classification result"]],
+            }),
+        );
+    }, 99999999);
 });

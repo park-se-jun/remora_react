@@ -1,6 +1,6 @@
 import { MyFile } from "interfaces/MyTypes";
-/* 테서트를 위한 임포트 */
-// import FormData from "form-data";
+
+// import FormData from "form-data"; // [테스트] 테스트 할때만 포함
 
 const MakeFormData = (Files: MyFile[]) => {
     const formData = new FormData();
@@ -8,7 +8,7 @@ const MakeFormData = (Files: MyFile[]) => {
         formData.append("originVideo", file);
         formData.append("needTranslate", `${file.translation}`);
     });
-    console.log(formData);
+    // console.log(formData);
     return formData;
 };
 export default MakeFormData;

@@ -25,7 +25,9 @@ export default class DownloadManager {
 
     private addFileInZip(index: number) {
         const targetText = this.targetResultList.getContentOf(index);
-        const targetFileName = `${this.targetResultList.getKeywordsOf}.txt`;
+        const targetFileName = `${this.targetResultList.getKeywordsOf(
+            index,
+        )}.txt`;
         this.zip.file(targetFileName, targetText);
     }
 

@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import ReactMarkdown from "react-markdown";
+import TempAdvertiseBanner from "../atoms/TempAdvertiseBanner";
 import LinkToExtractButton from "../molecules/LinkToExtractButton";
 
 const src = `# Remora
@@ -41,11 +42,13 @@ function AboutContent() {
                 mb: "50vh",
             }}
         >
+            <TempAdvertiseBanner />
             <LinkToExtractButton />
             <Box sx={markdownStyle}>
                 <ReactMarkdown>{src}</ReactMarkdown>
             </Box>
             <LinkToExtractButton />
+            <TempAdvertiseBanner />
         </Box>
     );
 }

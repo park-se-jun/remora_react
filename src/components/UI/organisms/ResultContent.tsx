@@ -6,6 +6,7 @@ import { setCurrContent, setIsDialogOpen } from "store/ActionCreator";
 import { useResultDispatch, useResultStoreState } from "store/ResultSotre";
 import BasicButton from "../atoms/BasicButton";
 import MyDialog from "../atoms/myDialog";
+import TempAdvertiseBanner from "../atoms/TempAdvertiseBanner";
 import LinkToExtractButton from "../molecules/LinkToExtractButton";
 import ResultList from "../molecules/ResultList";
 
@@ -30,6 +31,8 @@ function ResultContent() {
                 height: "40vh",
             }}
         >
+            <TempAdvertiseBanner />
+
             {resultList ? (
                 <>
                     <ResultList resultList={resultList} />

@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import StoreContextProvider from "store/Store";
+import TempAdvertiseBanner from "../atoms/TempAdvertiseBanner";
 import ExtractStepper from "../molecules/ExtractStepper";
 
 function ExtractContent() {
@@ -14,6 +15,8 @@ function ExtractContent() {
                 mb: "30vh",
             }}
         >
+            <TempAdvertiseBanner />
+
             <StoreContextProvider>
                 <ExtractStepper />
             </StoreContextProvider>

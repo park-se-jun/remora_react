@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 import { useDispatch, useStoreState } from "store/Store";
 // import sendingFiles from "modules/SendingFile";
 import { useResultDispatch } from "store/ResultSotre";
-import { setError, setResult, setStep } from "store/ActionCreator";
+import { setError, setProgress, setResult, setStep } from "store/ActionCreator";
 import SendingManager from "modules/SendingManager.class";
 import MakeFormData from "modules/MakeFormData";
 import DropBox from "./DropBox";
@@ -25,7 +25,10 @@ export default function FileSelectStep() {
         setStartUpload(true);
         dispatch(setStep(1));
         const sendingManager = new SendingManager(MakeFormData(fileList));
-        // sendingManager.setProgressCallback(value => {});
+        sendingManager.setProgressCallback(value => {
+            dispatch(setProgress(value));
+            console.log(value);
+        });
         sendingManager
             .sendingDataAPI()
             .then(result => {

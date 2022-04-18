@@ -6,6 +6,7 @@ import {
     SET_CURR_CONTENT,
     SET_DIALOG_OPEN,
     SET_ERROR,
+    SET_PROGRESS,
     SET_RESULT,
     SET_STEP,
     TRANSLATE_CHANGE,
@@ -22,7 +23,9 @@ export const addFile = (files: Array<MyFile>): MyAction => {
 export const setStep = (step: number): MyAction => {
     return { type: SET_STEP, step };
 };
-
+export const setProgress = (progress: number): MyAction => {
+    return { type: SET_PROGRESS, progress };
+};
 // ResultStore에 대한 Action
 export const clearState = (): ResultAction => {
     return { type: CLEAR_STATE };

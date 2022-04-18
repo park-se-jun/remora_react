@@ -10,6 +10,7 @@ import {
     ADD_FILE,
     CLEAR_STATE,
     SET_ERROR,
+    SET_PROGRESS,
     SET_RESULT,
     SET_STEP,
     TRANSLATE_CHANGE,
@@ -18,6 +19,7 @@ import {
 const initialState: StoreState = {
     fileList: [],
     step: 0,
+    progress: 0,
 };
 function changeTranslate(fileArray: Array<MyFile>, id: string) {
     return fileArray.map(file => {
@@ -42,6 +44,12 @@ function reducer(state: StoreState, action: MyAction): StoreState {
             return {
                 ...state,
                 fileList: changeTranslate(state.fileList, action.file.id),
+            };
+        }
+        case SET_PROGRESS: {
+            return {
+                ...state,
+                progress: action.progress,
             };
         }
         default:

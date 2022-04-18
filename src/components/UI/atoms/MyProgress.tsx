@@ -1,7 +1,10 @@
 import { Box, LinearProgress, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
-function MyProgress({ value }) {
+interface MyProgressProps {
+    value: number;
+}
+function MyProgress({ value }: MyProgressProps) {
     return (
         <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
             <Box sx={{ width: "100%" }}>
@@ -12,10 +15,9 @@ function MyProgress({ value }) {
                 />
             </Box>
             <Box sx={{ minWidth: 35 }}>
-                <Typography
-                    variant="body2"
-                    color="text.secondary"
-                >{`${Math.round(value)}%`}</Typography>
+                <Typography variant="body2" color="text.secondary">{` ${
+                    value / 20
+                }/5`}</Typography>
             </Box>
         </Box>
     );

@@ -1,7 +1,7 @@
 export const TRANSLATE_CHANGE = "TRANSLATE_CHANGE";
 export const ADD_FILE = "ADD_FILE";
 export const SET_STEP = "SET_STEP";
-
+export const SET_PROGRESS = "SET_PROGRESS";
 // ResultAction
 
 export const CLEAR_STATE = "CLEAR_STATE";

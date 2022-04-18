@@ -1,6 +1,8 @@
 // import PropTypes from "prop-types";
 
 import { Box, Typography } from "@mui/material";
+import DownloadManager from "modules/DownloadManager.class";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { setCurrContent, setIsDialogOpen } from "store/ActionCreator";
 import { useResultDispatch, useResultStoreState } from "store/ResultSotre";
@@ -12,7 +14,10 @@ import ResultList from "../molecules/ResultList";
 
 function ResultContent() {
     const { resultList, isDialogOpen } = useResultStoreState();
+    const [myDownloadManager, setMyDownloadManager] =
+        useState<DownloadManager | null>(null);
     const resultDispatch = useResultDispatch();
+    if (resultList) setMyDownloadManager(new DownloadManager(resultList));
 
     const handleClose = () => {
         // setDialogContent(null);
@@ -36,9 +41,17 @@ function ResultContent() {
             {resultList ? (
                 <>
                     <ResultList resultList={resultList} />
-                    <BasicButton to="/front" component={Link}>
-                        front page
-                    </BasicButton>
+                    <Box>
+                        <BasicButton
+                            onClick={myDownloadManager?.downloadAllContent}
+                        >
+                            전체 결과를 파일로 저장
+                        </BasicButton>
+                        <BasicButton to="/front" component={Link}>
+                            front page
+                        </BasicButton>
+                    </Box>
+
                     <MyDialog
                         resultList={resultList}
                         open={isDialogOpen}

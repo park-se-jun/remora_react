@@ -9,12 +9,19 @@ import {
 } from "@mui/material";
 import MyResultList from "interfaces/MyResultList";
 import { ClipboardCopyString } from "modules/ClipboardCopy";
+import DownloadManager from "modules/DownloadManager.class";
 import { useResultStoreState } from "store/ResultSotre";
-// import PropTypes from "prop-types";
+
 interface MyDialogProps extends DialogProps {
     resultList: MyResultList;
+    downloadManager?: DownloadManager | null;
 }
-function MyDialog({ resultList, onClose, open }: MyDialogProps) {
+function MyDialog({
+    downloadManager,
+    resultList,
+    onClose,
+    open,
+}: MyDialogProps) {
     const { currContent } = useResultStoreState();
     return (
         <>
@@ -55,7 +62,15 @@ function MyDialog({ resultList, onClose, open }: MyDialogProps) {
                         >
                             내용을 클립보드로 복사
                         </Button>
-                        <Button>파일로 다운</Button>
+                        <Button
+                            onClick={() => {
+                                downloadManager?.downloadTheContent(
+                                    currContent,
+                                );
+                            }}
+                        >
+                            파일로 다운
+                        </Button>
                     </DialogActions>
                 </Dialog>
             )}
@@ -63,6 +78,7 @@ function MyDialog({ resultList, onClose, open }: MyDialogProps) {
     );
 }
 export default MyDialog;
+MyDialog.defaultProps = { downloadManager: null };
 // MyDialog.propTypes = {
 //     value: PropTypes.shape({
 //         success: PropTypes.bool,

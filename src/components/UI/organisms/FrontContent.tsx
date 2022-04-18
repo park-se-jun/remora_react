@@ -1,16 +1,9 @@
-import { useEffect, useState } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import { useResultDispatch, useResultStoreState } from "store/ResultSotre";
-// import mock1 from "data/mockData";
-import { setResult } from "store/ActionCreator";
+import { Box, Typography } from "@mui/material";
 import LinkToExtractButton from "../molecules/LinkToExtractButton";
 import TempAdvertiseBanner from "../atoms/TempAdvertiseBanner";
 
 function FrontContent() {
     // 결과화면 테스트를 위한 임시 코드 입니다.
-    const [isTesting, setIsTesting] = useState<boolean>(false);
-    const resultStoreState = useResultStoreState();
-    const resultDispatch = useResultDispatch();
     return (
         <Box
             sx={{
@@ -27,13 +20,6 @@ function FrontContent() {
             </Typography>
 
             <LinkToExtractButton />
-            <Button
-                onClick={() => {
-                    setIsTesting(true);
-                }}
-            >
-                테서트 버튼
-            </Button>
         </Box>
     );
 }

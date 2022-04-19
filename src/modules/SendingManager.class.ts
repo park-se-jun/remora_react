@@ -3,7 +3,6 @@ import { AxiosInstance } from "axios";
 import { FrameRequestDTO, FrameResponseDTO } from "interfaces/FrameDTO";
 import { KeywordRequestDTO, KeyworResponseDTO } from "interfaces/KeywordDTO";
 import MyResultList from "interfaces/MyResultList";
-import { MyFile } from "interfaces/MyTypes";
 import { TextRequestDTO, TextResponseDTO } from "interfaces/TextDTO";
 import {
     TranslationRequestDTO,
@@ -11,7 +10,6 @@ import {
 } from "interfaces/TranslationDTO";
 import { UploadResponseDTO } from "interfaces/UploadDTO";
 import { formDataClient, jsonDataClient } from "./DefaultClient";
-import MakeFormData from "./MakeFormData";
 
 export default class SendingManager {
     private myResultList: MyResultList | null;

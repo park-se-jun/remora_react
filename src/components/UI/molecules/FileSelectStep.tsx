@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
+import axios from "axios";
 import { useDispatch, useStoreState } from "store/Store";
 // import sendingFiles from "modules/SendingFile";
 import { useResultDispatch } from "store/ResultSotre";
@@ -22,13 +23,25 @@ export default function FileSelectStep() {
     });
     const onUpload = () => {
         console.log("파일전송시작");
+        console.log(fileList);
         setStartUpload(true);
         dispatch(setStep(1));
-        const sendingManager = new SendingManager(MakeFormData(fileList));
+        const formData = MakeFormData(fileList);
+        const sendingManager = new SendingManager(formData);
         sendingManager.setProgressCallback(value => {
             dispatch(setProgress(value));
             console.log(value);
         });
+        axios({
+            method: "get",
+            url: "http://localhost:8080/health",
+        }).then(response => console.log(response));
+        // axios({
+        //     method: "post",
+        //     url: "http://20.231.32.80:8080/upload",
+        //     headers: { "Content-Type": "multipart/form-data" },
+        //     data: formData,
+        // }).then(response => console.log(response));
         sendingManager
             .sendingDataAPI()
             .then(result => {

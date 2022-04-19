@@ -9,8 +9,8 @@ const baseURL = (() => {
 
 export const formDataClient = axios.create({
     baseURL,
-    // headers: { "Content-Type": "multipart/form-data" },
-    maxBodyLength: Infinity,
+    headers: { "Content-Type": "multipart/form-data" },
+    // maxBodyLength: Infinity,
 });
 export const jsonDataClient = axios.create({
     baseURL,

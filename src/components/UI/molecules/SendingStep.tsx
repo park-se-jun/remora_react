@@ -1,6 +1,7 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useStoreState } from "store/Store";
+import { useEffect } from "react";
 import { useResultStoreState } from "store/ResultSotre";
 import MyProgress from "../atoms/MyProgress";
 
@@ -9,12 +10,14 @@ export default function SendingStep() {
     /*  submit 관련 status     */
     const { resultList, error } = useResultStoreState();
     const { progress } = useStoreState();
+    useEffect(() => {
+        if (resultList !== undefined) {
+            navigate("success", { replace: true });
+        } else if (error !== undefined) {
+            navigate("error", { replace: true });
+        }
+    });
 
-    if (resultList !== undefined) {
-        navigate("success", { replace: true });
-    } else if (error !== undefined) {
-        navigate("error", { replace: true });
-    }
     return (
         <>
             <Box margin="auto">

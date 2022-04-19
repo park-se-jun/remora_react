@@ -8,7 +8,7 @@ const MakeFormData = (Files: MyFile[]) => {
         formData.append("originVideo", file);
         formData.append("needTranslate", `${file.translation}`);
     });
-    // console.log(formData);
+
     return formData;
 };
 export default MakeFormData;

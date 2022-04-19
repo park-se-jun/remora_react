@@ -23,9 +23,6 @@ function Root() {
                             <Route path="error" element={<ErrorPage />} />
                         </Route>
                         <Route path="/extract/result" element={<Result />} />
-
-                        {/* <Route path="/test" element={<Test />} />
-                    [테스트] 반드시 지워주기 */}
                         <Route
                             path="/*"
                             element={<h1>존재하지 않는 페이지 입니다.</h1>}

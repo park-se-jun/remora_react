@@ -1,5 +1,4 @@
 import { Dispatch } from "react";
-import { KeyworResponseDTO } from "./KeywordDTO";
 
 export interface BasicProps {
     children?: JSX.Element | JSX.Element[];
@@ -8,15 +7,6 @@ export interface MyFile extends File {
     id: string;
     translation: boolean;
 }
-// export type MyResult = {
-//     success: boolean;
-//     message: string;
-//     code: number;
-//     originResultText: Array<string>;
-//     translatedResultText: Array<string>;
-//     keywords: Array<string>;
-//     needTranslation: boolean;
-// };
 
 export type MyAction =
     | { type: "TRANSLATE_CHANGE"; file: MyFile }

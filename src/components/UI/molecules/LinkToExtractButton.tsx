@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import BasicButton from "../atoms/BasicButton";
 
 const style = {
+    fontWeight: "fontWeightBold",
     bgcolor: "secondary.dark",
     p: 3,
     borderRadius: 4,
-    fontWeight: "fontWeightBold",
     maxWeight: "300px",
     minWeight: "300px",
 };

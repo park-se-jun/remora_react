@@ -23,18 +23,20 @@ function FileInfo({ file }: FileInfoProps) {
                 flexDirection: "column",
                 alignItems: "center",
                 flexWrap: "nowrap",
+                mr: "10px",
                 border: 1,
                 borderRadius: 2,
                 borderColor: theme.palette.primary.contrastText,
                 justifyContent: "space-between",
                 maxHeight: "9rem",
-                maxWidth: "9rem ",
+                minWidth: "8rem ",
             }}
         >
             <VideoLibraryIcon sx={{ fontSize: "5rem" }} />
             <EllipsisText text={file.name} length={10} tooltip />
 
             <TranslationToggleButton
+                sx={{ marginTop: "10px", width: 1 }}
                 Translation={file.translation}
                 onClick={changeTranslate}
             />

@@ -3,7 +3,6 @@ import LinkToExtractButton from "../molecules/LinkToExtractButton";
 import TempAdvertiseBanner from "../atoms/TempAdvertiseBanner";
 
 function FrontContent() {
-    // 결과화면 테스트를 위한 임시 코드 입니다.
     return (
         <Box
             sx={{

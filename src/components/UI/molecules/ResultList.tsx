@@ -21,8 +21,8 @@ function ResultList({ resultList }: ResultListProps) {
                 display: "flex",
                 flexWrap: "wrap",
                 justifyContent: "space-evenly",
-                mt: "30vh",
-                mb: "30vh",
+                mt: "5vh",
+                mb: "5vh",
                 width: "100vh",
             }}
         >

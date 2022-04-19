@@ -24,7 +24,6 @@ export default function FileSelectStep() {
     const dispatch = useDispatch();
     const resultDispatch = useResultDispatch();
     useEffect(() => {
-        // console.log(fileList);
         if (fileList.length !== 0) setButtonActivation(true);
     });
     const onUpload = () => {
@@ -60,8 +59,13 @@ export default function FileSelectStep() {
             </Typography>
             <DropBox />
 
-            <BasicButton disabled={!buttonActivation} onClick={onUpload}>
-                다음
+            <BasicButton
+                sx={{ fontWeight: "fontWeightBold", bgcolor: "secondary.dark" }}
+                disableElevation={false}
+                disabled={!buttonActivation}
+                onClick={onUpload}
+            >
+                추출하기
             </BasicButton>
         </>
     );

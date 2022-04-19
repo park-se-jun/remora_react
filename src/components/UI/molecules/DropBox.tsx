@@ -12,7 +12,7 @@ function DropBox() {
     const theme = useTheme();
 
     const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
-        // accept: "video/*",
+        accept: "video/*",
         noClick: true,
         noKeyboard: true,
         onDrop: acceptedFiles => {
@@ -38,8 +38,11 @@ function DropBox() {
             {...getRootProps()}
         >
             <input {...getInputProps()} />
-
-            <BasicButton sx={{ mt: "1rem" }} variant="contained" onClick={open}>
+            <BasicButton
+                disableElevation={false}
+                sx={{ mt: "1rem" }}
+                onClick={open}
+            >
                 동영상 파일 선택
             </BasicButton>
             <Box sx={{ mt: "2rem", mb: "1rem" }}>
@@ -52,7 +55,11 @@ function DropBox() {
                         또는 파일을 여기에 놔주세요
                     </Typography>
                 )}
+                <Typography sx={{ color: "#e2e2e2" }}>
+                    동영상 파일만 올라갑니다
+                </Typography>
             </Box>
+
             <FileList />
         </Box>
     );

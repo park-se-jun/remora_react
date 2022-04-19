@@ -3,10 +3,6 @@ import { useStoreState } from "store/Store";
 import { MyFile } from "interfaces/MyTypes";
 import FileInfo from "../atoms/FileInfo";
 
-// function UploadStep() {}
-// function TranslationStep() {}
-// function ExtractStep() {}
-// function ResultStep() {}
 export default function FileList() {
     const { fileList } = useStoreState();
     return (
@@ -17,6 +13,7 @@ export default function FileList() {
                 display: "flex",
                 overflow: "auto",
                 width: 11.5 / 12,
+                height: 1,
             }}
         >
             {fileList.map(function callback(file: MyFile) {

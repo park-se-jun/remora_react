@@ -8,10 +8,7 @@ import {
 import { createContext, useContext, useReducer } from "react";
 import {
     ADD_FILE,
-    CLEAR_STATE,
-    SET_ERROR,
     SET_PROGRESS,
-    SET_RESULT,
     SET_STEP,
     TRANSLATE_CHANGE,
 } from "./ActionType";

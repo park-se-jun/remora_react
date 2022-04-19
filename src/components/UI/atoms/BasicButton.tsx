@@ -5,6 +5,13 @@ import React from "react";
 function BasicButton<C extends React.ElementType>(
     props: ButtonProps<C, { component?: C }>,
 ) {
-    return <Button color="secondary" variant="contained" {...props} />;
+    return (
+        <Button
+            disableElevation
+            color="secondary"
+            variant="contained"
+            {...props}
+        />
+    );
 }
 export default BasicButton;

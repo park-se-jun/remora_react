@@ -1,3 +1,4 @@
+import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import { Box, Typography } from "@mui/material";
 import { useDispatch, useStoreState } from "store/Store";
 import { useEffect } from "react";
@@ -16,13 +17,17 @@ function SuccessPage() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                justifyContent: "center",
+                height: "100vh",
             }}
         >
+            <VideoLibraryIcon color="primary" sx={{ fontSize: "5rem" }} />
+
             <Typography variant="h6">추출이 완료되었습니다.</Typography>
             <BasicButton
+                disableElevation
                 sx={{
                     bgcolor: "secondary.dark",
-                    height: 1,
                     borderRadius: 3,
                     fontWeight: "fontWeightBold",
                 }}

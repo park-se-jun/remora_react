@@ -9,40 +9,41 @@ export default class DownloadManager {
     private zip: JSZip;
 
     constructor(targetResultList: MyResultList) {
+        // console.log("downloadManager 생성중");
         this.targetResultList = targetResultList;
         this.zip = new JSZip();
+        // console.log(this.targetResultList.getLength());
+
+        // console.log("downloadManager 생성완료");
     }
 
-    private downloadZip() {
+    private downloadZip = () => {
         this.zip.generateAsync({ type: "blob" }).then(content => {
             saveAs(content, "결과물.zip");
         });
-    }
+    };
 
-    private cleanZip() {
+    private cleanZip = () => {
         this.zip = new JSZip();
-    }
+    };
 
-    private addFileInZip(index: number) {
+    private addFileInZip = (index: number) => {
         const targetText = this.targetResultList.getContentOf(index);
-        const targetFileName = `${this.targetResultList.getKeywordsOf(
-            index,
-        )}.txt`;
+        const targetFileName = `${index + 1}.txt`;
         this.zip.file(targetFileName, targetText);
-    }
+    };
 
-    public downloadTheContent(index: number) {
+    public downloadTheContent = (index: number) => {
         this.cleanZip();
         this.addFileInZip(index);
         this.downloadZip();
-    }
+    };
 
-    public downloadAllContent() {
+    public downloadAllContent = () => {
         this.cleanZip();
-        // eslint-disable-next-line no-plusplus
-        for (let i = 0; i < this.targetResultList.getLength(); i++) {
+        for (let i = 0; i < this.targetResultList.getLength(); i += 1) {
             this.addFileInZip(i);
         }
         this.downloadZip();
-    }
+    };
 }

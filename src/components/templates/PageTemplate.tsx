@@ -23,18 +23,6 @@ function PageTemplate({ header, content, footer }: PageTemplateProps) {
                 {footer}
             </Box>
         </>
-
-        // <Grid container spacing={2}>
-        //     <Grid className="Header" item xs={12}>
-        //         {header}
-        //     </Grid>
-        //     <Grid className="content" item xs={12}>
-        //         {content}
-        //     </Grid>
-        //     <Grid className="footer" item xs={12}>
-        //         {footer}
-        //     </Grid>
-        // </Grid>
     );
 }
 

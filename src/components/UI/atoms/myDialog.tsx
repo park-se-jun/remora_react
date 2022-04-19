@@ -79,28 +79,3 @@ function MyDialog({
 }
 export default MyDialog;
 MyDialog.defaultProps = { downloadManager: null };
-// MyDialog.propTypes = {
-//     value: PropTypes.shape({
-//         success: PropTypes.bool,
-//         message: PropTypes.string,
-//         code: PropTypes.number,
-//         originResultText: PropTypes.arrayOf(PropTypes.string),
-//         translatedResultText: PropTypes.arrayOf(PropTypes.string),
-//         keywords: PropTypes.arrayOf(PropTypes.string),
-//         needTranslation: PropTypes.bool,
-//     }),
-//     open: PropTypes.bool.isRequired,
-//     onClose: PropTypes.func,
-// };
-// MyDialog.defaultProps = {
-//     onClose: null,
-//     value: {
-//         success: true,
-//         message: "default",
-//         code: 0,
-//         originResultText: ["default"],
-//         translatedResultText: ["default"],
-//         keywords: ["default"],
-//         needTranslation: true,
-//     },
-// };

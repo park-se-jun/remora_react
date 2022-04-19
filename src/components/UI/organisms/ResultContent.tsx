@@ -1,6 +1,6 @@
 // import PropTypes from "prop-types";
 
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import DownloadManager from "modules/DownloadManager.class";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -12,17 +12,27 @@ import TempAdvertiseBanner from "../atoms/TempAdvertiseBanner";
 import LinkToExtractButton from "../molecules/LinkToExtractButton";
 import ResultList from "../molecules/ResultList";
 
+const buttonStyle = {
+    bgcolor: "secondary.dark",
+    padding: "20px",
+    borderRadius: 4,
+    marginRight: "10px",
+    marginLeft: "10px",
+};
 function ResultContent() {
     const { resultList, isDialogOpen } = useResultStoreState();
     const [myDownloadManager, setMyDownloadManager] =
         useState<DownloadManager | null>(null);
     const resultDispatch = useResultDispatch();
     useEffect(() => {
-        if (resultList) setMyDownloadManager(new DownloadManager(resultList));
+        if (resultList) {
+            console.log(resultList);
+            const downloadManager = new DownloadManager(resultList);
+            setMyDownloadManager(downloadManager);
+        }
     }, []);
 
     const handleClose = () => {
-        // setDialogContent(null);
         resultDispatch(setCurrContent(null));
         resultDispatch(setIsDialogOpen(false));
     };
@@ -33,8 +43,6 @@ function ResultContent() {
                 flexDirection: "column",
                 justifyContent: "space-evenly",
                 alignItems: "center",
-                mt: "30vh",
-                mb: "30vh",
                 height: "40vh",
             }}
         >
@@ -45,11 +53,20 @@ function ResultContent() {
                     <ResultList resultList={resultList} />
                     <Box>
                         <BasicButton
+                            disableElevation
+                            sx={buttonStyle}
+                            size="large"
                             onClick={myDownloadManager?.downloadAllContent}
                         >
                             전체 결과를 파일로 저장
                         </BasicButton>
-                        <BasicButton to="/front" component={Link}>
+                        <BasicButton
+                            disableElevation
+                            size="large"
+                            sx={buttonStyle}
+                            to="/front"
+                            component={Link}
+                        >
                             front page
                         </BasicButton>
                     </Box>
@@ -57,6 +74,7 @@ function ResultContent() {
                     <MyDialog
                         resultList={resultList}
                         open={isDialogOpen}
+                        downloadManager={myDownloadManager}
                         onClose={handleClose}
                     />
                 </>
@@ -74,19 +92,3 @@ function ResultContent() {
     );
 }
 export default ResultContent;
-// ResultContent.propTypes = {
-//     resultList: PropTypes.arrayOf(
-//         PropTypes.shape({
-//             success: PropTypes.bool,
-//             message: PropTypes.string,
-//             code: PropTypes.number,
-//             originResultText: PropTypes.arrayOf(PropTypes.string),
-//             translatedResultText: PropTypes.arrayOf(PropTypes.string),
-//             keyword: PropTypes.arrayOf(PropTypes.string),
-//             needTranslation: PropTypes.bool,
-//         }),
-//     ),
-// };
-// ResultContent.defaultProps = {
-//     resultList: null,
-// };

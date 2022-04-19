@@ -38,7 +38,6 @@ export default class MyResultList {
 
     public getContentOf(index: number): string {
         return `keywords : ${this.getKeywordsOf(index)}
-        
-            text: ${this.getTextOf(index)}`;
+text: ${this.getTextOf(index)}`;
     }
 }

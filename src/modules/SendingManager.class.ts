@@ -200,10 +200,16 @@ export default class SendingManager {
         return this.makeMyResultList(input);
     }
 
-    public async testSendingAPI(videoCode: number) {
+    public async testSendingAPI(howManyFile: number) {
+        const videoCode: string[] = [];
+        for (let i = 0; i < howManyFile; i += 1) {
+            let randomNumber = Math.floor(Math.random() * 11);
+            randomNumber = (randomNumber % 3) + 1;
+            videoCode.push(`${randomNumber}`);
+        }
         await this.uploadAPI();
         this.progressCallback(20);
-        await this.testFrameAPI({ videoCode: [`${(videoCode % 3) + 1}`] });
+        await this.testFrameAPI({ videoCode });
         this.progressCallback(40);
         await this.textAPI();
         this.progressCallback(60);
@@ -212,6 +218,7 @@ export default class SendingManager {
         await this.keywordAPI();
         this.progressCallback(100);
         const value = await this.makeMyResultList(this.keywordResponseDTO);
+        console.log(value);
         return value;
     }
 }

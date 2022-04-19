@@ -34,7 +34,6 @@ function ResultInfo({ index: i, ...props }: ResultInfoProps) {
                                 </Typography>
                             </List>
                         </>
-                        )
                     </CardContent>
                 </Card>
             </ButtonBase>

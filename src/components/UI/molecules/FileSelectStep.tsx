@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import axios from "axios";
 import { useDispatch, useStoreState } from "store/Store";
 // import sendingFiles from "modules/SendingFile";
-import { useResultDispatch } from "store/ResultSotre";
-import { setError, setProgress, setResult, setStep } from "store/ActionCreator";
+import { useResultDispatch, useResultStoreState } from "store/ResultSotre";
+import {
+    clearState,
+    setError,
+    setProgress,
+    setResult,
+    setStep,
+} from "store/ActionCreator";
 import SendingManager from "modules/SendingManager.class";
 import MakeFormData from "modules/MakeFormData";
 import DropBox from "./DropBox";
@@ -13,12 +18,13 @@ import SendingStep from "./SendingStep";
 
 export default function FileSelectStep() {
     const { fileList } = useStoreState();
+    const { resultList } = useResultStoreState();
     const [startUpload, setStartUpload] = useState<boolean>(false);
     const [buttonActivation, setButtonActivation] = useState(false);
     const dispatch = useDispatch();
     const resultDispatch = useResultDispatch();
     useEffect(() => {
-        console.log(fileList);
+        // console.log(fileList);
         if (fileList.length !== 0) setButtonActivation(true);
     });
     const onUpload = () => {
@@ -26,26 +32,18 @@ export default function FileSelectStep() {
         console.log(fileList);
         setStartUpload(true);
         dispatch(setStep(1));
+        resultDispatch(clearState());
         const formData = MakeFormData(fileList);
         const sendingManager = new SendingManager(formData);
         sendingManager.setProgressCallback(value => {
             dispatch(setProgress(value));
             console.log(value);
         });
-        axios({
-            method: "get",
-            url: "http://localhost:8080/health",
-        }).then(response => console.log(response));
-        // axios({
-        //     method: "post",
-        //     url: "http://20.231.32.80:8080/upload",
-        //     headers: { "Content-Type": "multipart/form-data" },
-        //     data: formData,
-        // }).then(response => console.log(response));
         sendingManager
-            .sendingDataAPI()
+            .testSendingAPI(fileList.length)
             .then(result => {
                 resultDispatch(setResult(result));
+                console.log(resultList);
             })
             .catch(err => {
                 resultDispatch(setError(err));

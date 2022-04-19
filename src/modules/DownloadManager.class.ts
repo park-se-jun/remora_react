@@ -31,13 +31,13 @@ export default class DownloadManager {
         this.zip.file(targetFileName, targetText);
     }
 
-    downloadTheContent(index: number) {
+    public downloadTheContent(index: number) {
         this.cleanZip();
         this.addFileInZip(index);
         this.downloadZip();
     }
 
-    downloadAllContent() {
+    public downloadAllContent() {
         this.cleanZip();
         // eslint-disable-next-line no-plusplus
         for (let i = 0; i < this.targetResultList.getLength(); i++) {

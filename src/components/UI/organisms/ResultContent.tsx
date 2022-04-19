@@ -2,7 +2,7 @@
 
 import { Box, Typography } from "@mui/material";
 import DownloadManager from "modules/DownloadManager.class";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { setCurrContent, setIsDialogOpen } from "store/ActionCreator";
 import { useResultDispatch, useResultStoreState } from "store/ResultSotre";
@@ -17,7 +17,9 @@ function ResultContent() {
     const [myDownloadManager, setMyDownloadManager] =
         useState<DownloadManager | null>(null);
     const resultDispatch = useResultDispatch();
-    if (resultList) setMyDownloadManager(new DownloadManager(resultList));
+    useEffect(() => {
+        if (resultList) setMyDownloadManager(new DownloadManager(resultList));
+    }, []);
 
     const handleClose = () => {
         // setDialogContent(null);

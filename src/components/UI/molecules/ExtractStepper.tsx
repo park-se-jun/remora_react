@@ -1,13 +1,6 @@
 import { Stepper, Box, Step, StepLabel } from "@mui/material";
-
-// import React from "react";
-import { useDispatch, useStoreState } from "store/Store";
+import { useStoreState } from "store/Store";
 import { Outlet } from "react-router-dom";
-
-// import BasicButton from "../atoms/BasicButton";
-// import MyProgress from "../atoms/MyProgress";
-// import FileList from "./FileList";
-// import FileSelectStep from "./FileSelectStep";
 
 const steps = ["동영상 선택", "전송", "결과 확인"];
 

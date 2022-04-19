@@ -1,6 +1,6 @@
 // import PropTypes from "prop-types";
 
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import DownloadManager from "modules/DownloadManager.class";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";

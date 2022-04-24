@@ -8,7 +8,6 @@ import {
     ListItem,
     Typography,
 } from "@mui/material";
-import PropTypes from "prop-types";
 import { useResultStoreState } from "store/ResultSotre";
 
 interface ResultInfoProps extends ButtonBaseProps {
@@ -41,21 +40,3 @@ function ResultInfo({ index: i, ...props }: ResultInfoProps) {
     );
 }
 export default ResultInfo;
-ResultInfo.propTypes = {
-    value: PropTypes.shape({
-        success: PropTypes.bool,
-        message: PropTypes.string,
-        code: PropTypes.number,
-        originResultText: PropTypes.arrayOf(PropTypes.string),
-        translatedResultText: PropTypes.arrayOf(PropTypes.string),
-        keyword: PropTypes.arrayOf(PropTypes.string),
-        needTranslation: PropTypes.bool,
-    }).isRequired,
-    index: PropTypes.number.isRequired,
-    onDialogContent: PropTypes.func,
-    onClick: PropTypes.func,
-};
-ResultInfo.defaultProps = {
-    onDialogContent: null,
-    onClick: null,
-};

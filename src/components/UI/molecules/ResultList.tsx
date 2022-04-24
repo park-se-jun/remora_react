@@ -9,7 +9,6 @@ type ResultListProps = {
     resultList: MyResultList;
 };
 function ResultList({ resultList }: ResultListProps) {
-    console.log(resultList);
     const resultDispatch = useResultDispatch();
     function itemClickCallback(itemIndex: number) {
         resultDispatch(setIsDialogOpen(true));

@@ -26,7 +26,6 @@ function ResultContent() {
     const resultDispatch = useResultDispatch();
     useEffect(() => {
         if (resultList) {
-            console.log(resultList);
             const downloadManager = new DownloadManager(resultList);
             setMyDownloadManager(downloadManager);
         }

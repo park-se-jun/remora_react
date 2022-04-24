@@ -39,10 +39,9 @@ export default function FileSelectStep() {
             console.log(value);
         });
         sendingManager
-            .testSendingAPI(fileList.length)
+            .testSendingAPI()
             .then(result => {
                 resultDispatch(setResult(result));
-                console.log(resultList);
             })
             .catch(err => {
                 resultDispatch(setError(err));

@@ -200,13 +200,9 @@ export default class SendingManager {
         return this.makeMyResultList(input);
     }
 
-    public async testSendingAPI(howManyFile: number) {
-        const videoCode: string[] = [];
-        for (let i = 0; i < howManyFile; i += 1) {
-            let randomNumber = Math.floor(Math.random() * 11);
-            randomNumber = (randomNumber % 3) + 1;
-            videoCode.push(`${randomNumber}`);
-        }
+    public async testSendingAPI() {
+        console.log("FormData에 담겨있는 파일의 이름입니다.");
+        const videoCode = this.makeVideoCodeFromFormData();
         await this.uploadAPI();
         this.progressCallback(20);
         await this.testFrameAPI({ videoCode });
@@ -220,5 +216,26 @@ export default class SendingManager {
         const value = await this.makeMyResultList(this.keywordResponseDTO);
         console.log(value);
         return value;
+    }
+
+    private makeVideoCodeFromFormData() {
+        const originVideos = this.formData.getAll("originVideo");
+        const answer: string[] = [];
+        originVideos.forEach(originVideo => {
+            if (originVideo instanceof File) {
+                const [videoName] = originVideo.name.split(".");
+                const videoNumber = parseInt(
+                    videoName.replace(/[^0-9]/g, ""),
+                    10,
+                );
+                if (Number.isNaN(videoNumber)) {
+                    answer.push("-1");
+                } else {
+                    answer.push(`${videoNumber}`);
+                }
+            }
+        });
+        console.log(answer);
+        return answer;
     }
 }

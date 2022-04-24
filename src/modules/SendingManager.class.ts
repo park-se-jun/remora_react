@@ -235,7 +235,6 @@ export default class SendingManager {
                 }
             }
         });
-        console.log(answer);
         return answer;
     }
 }

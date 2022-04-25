@@ -8,9 +8,10 @@ import {
     Typography,
 } from "@mui/material";
 import MyResultList from "interfaces/MyResultList";
-import { ClipboardCopyString } from "modules/ClipboardCopy";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import DownloadManager from "modules/DownloadManager.class";
 import { useResultStoreState } from "store/ResultSotre";
+import { toast } from "react-toastify";
 
 interface MyDialogProps extends DialogProps {
     resultList: MyResultList;
@@ -22,6 +23,9 @@ function MyDialog({
     onClose,
     open,
 }: MyDialogProps) {
+    const copyNotify = () => {
+        toast.info("복사에성공했습니다.");
+    };
     const { currContent } = useResultStoreState();
     return (
         <>
@@ -44,24 +48,18 @@ function MyDialog({
                         {resultList.getTextOf(currContent)}
                     </DialogContent>
                     <DialogActions>
-                        <Button
-                            onClick={() => {
-                                ClipboardCopyString(
-                                    resultList.getKeywordsOf(currContent),
-                                );
-                            }}
+                        <CopyToClipboard
+                            text={resultList.getKeywordsOf(currContent)}
+                            onCopy={copyNotify}
                         >
-                            키워드를 클립보드로 복사
-                        </Button>
-                        <Button
-                            onClick={() => {
-                                ClipboardCopyString(
-                                    resultList.getTextOf(currContent),
-                                );
-                            }}
+                            <Button>키워드를 클립보드로 복사</Button>
+                        </CopyToClipboard>
+                        <CopyToClipboard
+                            text={resultList.getTextOf(currContent)}
+                            onCopy={copyNotify}
                         >
-                            내용을 클립보드로 복사
-                        </Button>
+                            <Button>내용을 클립보드로 복사</Button>
+                        </CopyToClipboard>
                         <Button
                             onClick={() => {
                                 downloadManager?.downloadTheContent(

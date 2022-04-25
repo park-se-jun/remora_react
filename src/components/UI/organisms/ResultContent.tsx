@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import DownloadManager from "modules/DownloadManager.class";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { setCurrContent, setIsDialogOpen } from "store/ActionCreator";
 import { useResultDispatch, useResultStoreState } from "store/ResultSotre";
 import BasicButton from "../atoms/BasicButton";
@@ -11,6 +12,7 @@ import MyDialog from "../atoms/myDialog";
 import TempAdvertiseBanner from "../atoms/TempAdvertiseBanner";
 import LinkToExtractButton from "../molecules/LinkToExtractButton";
 import ResultList from "../molecules/ResultList";
+import "react-toastify/dist/ReactToastify.css";
 
 const buttonStyle = {
     bgcolor: "secondary.dark",
@@ -75,6 +77,18 @@ function ResultContent() {
                         open={isDialogOpen}
                         downloadManager={myDownloadManager}
                         onClose={handleClose}
+                    />
+
+                    <ToastContainer
+                        position="bottom-right"
+                        autoClose={1000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
                     />
                 </>
             ) : (

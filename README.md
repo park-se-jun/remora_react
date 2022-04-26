@@ -1,8 +1,11 @@
 # Remora
-Remora backend Repository
+Remora frontend Repository
 
-JAVA : openjdk 11.0.11  
-gradle : 7.2
+backend Repository : https://github.com/PPPosik/Remora_backend
+
+ML repository : https://github.com/SYKnock/Remora_ML
+
+사용 언어 : javascript -> typescript
 
 <img src="readme/img/logo.svg" width="200" height="200"/>
 
